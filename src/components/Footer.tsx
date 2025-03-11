@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white p-4 mt-8 text-center">
+    <footer className="border-white border-t-4 text-white p-4 mt-8 text-center">
       <p>© {new Date().getFullYear()} SagePaths | Resume Career</p>
       <div>
         <a href="mailto:jheremi2015@gmail.com" className="hover:text-blue-400">Email</a> | 

@@ -1,84 +1,104 @@
-// Feedback.tsx
-
-import { useState } from 'react';
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Feedback() {
-  const [email, setEmail] = useState('');
-  const [issue, setIssue] = useState('');
-  const [subject, setSubject] = useState('');
-  const [comments, setComments] = useState('');
+  const [email, setEmail] = useState("");
+  const [issue, setIssue] = useState("");
+  const [subject, setSubject] = useState("");
+  const [comments, setComments] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission (e.g., send data to API)
     console.log({ email, issue, subject, comments });
   };
 
   return (
-    <div className=" bottom-4 bg-white text-black shadow-lg p-6 rounded-lg max-w-sm w-full">
-    <h2 className="text-xl font-semibold mb-4">Feedback</h2>
-    <form onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-sm font-medium">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your email"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="issue" className="block text-sm font-medium">Issue</label>
-        <select
-          id="issue"
-          value={issue}
-          onChange={(e) => setIssue(e.target.value)}
-          className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500"
-          required
+    <motion.div
+      className="bg-gray-900 text-white p-6 rounded-xl shadow-xl border border-transparent
+                 hover:border-blue-400 transition-all max-w-md mx-auto"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-2xl font-bold text-center mb-6">Feedback</h2>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Email */}
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg 
+                       focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        {/* Issue Selection */}
+        <div>
+          <label htmlFor="issue" className="block text-sm font-medium text-gray-300">Issue</label>
+          <select
+            id="issue"
+            value={issue}
+            onChange={(e) => setIssue(e.target.value)}
+            className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg 
+                       focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            required
+          >
+            <option value="">Select an issue</option>
+            <option value="technical">Technical Issue</option>
+            <option value="billing">Billing</option>
+            <option value="account">Account Issue</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        {/* Subject */}
+        <div>
+          <label htmlFor="subject" className="block text-sm font-medium text-gray-300">Subject</label>
+          <input
+            type="text"
+            id="subject"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg 
+                       focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            placeholder="Subject"
+            required
+          />
+        </div>
+
+        {/* Comments */}
+        <div>
+          <label htmlFor="comments" className="block text-sm font-medium text-gray-300">Comments</label>
+          <textarea
+            id="comments"
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
+            className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg 
+                       focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            placeholder="Enter your comments"
+            rows={4}
+            required
+          ></textarea>
+        </div>
+
+        {/* Submit Button */}
+        <motion.button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold 
+                     hover:bg-blue-600 transition-all shadow-md"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <option value="">Select an issue</option>
-          <option value="technical">Technical Issue</option>
-          <option value="billing">Billing</option>
-          <option value="account">Account Issue</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div className="mb-4">
-        <label htmlFor="subject" className="block text-sm font-medium">Subject</label>
-        <input
-          type="text"
-          id="subject"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-          className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500"
-          placeholder="Subject"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="comments" className="block text-sm font-medium">Comments</label>
-        <textarea
-          id="comments"
-          value={comments}
-          onChange={(e) => setComments(e.target.value)}
-          className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your comments"
-          rows={4}
-          required
-        ></textarea>
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none"
-      >
-        Submit
-      </button>
-    </form>
-  </div>
+          Submit Feedback
+        </motion.button>
+      </form>
+    </motion.div>
   );
-};
-
-
+}

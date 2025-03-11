@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { FaUser, FaBriefcase, FaProjectDiagram, FaGraduationCap, FaFolder, FaTools } from "react-icons/fa";
 import Feedback from "./Feedback";
 import Skills from './Skills';
+import WorkExperience from './Experience';
+import Projects from './Projects';
 
 const records = [
   { id: "education", title: "Education", icon: <FaGraduationCap size={25} /> },
@@ -135,18 +137,20 @@ export default function Home() {
                     transition={{ type: "spring", stiffness: 60, damping: 12 }}
                   />
                 ))}
+                
                 {/* Papers will animate and move out of the folder to the bottom */}
                 {isActive && papers.slice(2, 3).map((paper) => (  // Use slice(0, 1) to only render one paper
                   <motion.div
                     key={`paper-${paper.id}`}
                     className="absolute shadow-lg rounded-t-lg z-[-1]"
                     style={{
-                      top: `${paper.top * 5}px`, // Initial top position of paper
+                      top: `${paper.top}px`, // Initial top position of paper
                       right: `${paper.right}px`, // Same right position for all
                       width: `${paper.width}px`,
                       height: `${paper.height}px`,
-                      border: `2px solid black`, // Border color
-                      backgroundColor: "white"
+                      border: `2px solid white`, // Border color
+                      backgroundColor: "black",
+                      boxShadow: "0 0 20px rgba(255, 255, 255, 0.8)"
                     }}
                     animate={{
                       scale: animationComplete ? 1 : 2, // Expand after initial animation
@@ -159,17 +163,20 @@ export default function Home() {
                     }}
                     initial={{
                       scale: 0, // Start small
+                      boxShadow: "0 0 5px rgba(255, 255, 255, 0.5)"
                     }}
                     transition={{
                       type: "spring",
-                      stiffness: 80,
-                      damping: 40,
+                      stiffness: 60,
+                      damping: 20,
                       duration: animationComplete ? 0.6 : 0.3, // Use a shorter duration for the final expansion
                     }}
                     onAnimationComplete={handleAnimationComplete} // Trigger content animation after paper animation completes
                   >
+                    
                     {/* Content inside the paper */}
                     {showContent && animationComplete && (
+                      
                       <motion.div
                         className="p-5"
                         initial={{ opacity: 0 }} // Start with opacity 0 (hidden)
@@ -179,7 +186,7 @@ export default function Home() {
                         {paper.data
                           .filter((section) => section.id === activeSection) // Filter the data by active section
                           .map((section) => (
-                            <div className="text-lg text-black font-bold" key={section.title}>
+                            <div className="text-lg text-white font-bold" key={section.title}>
                               <h2>{section.title}</h2>
                               <p>{section.content}</p>
                             </div>
@@ -205,12 +212,25 @@ export default function Home() {
             );
           })}
         </div>
+        
 
       </div>
 
           {activeSection === 'tools' && (
             <div className="mt-10 w-full flex justify-center">
                 <Skills />
+            </div>
+          )}
+          
+          {activeSection === 'experience' && (
+            <div className="mt-10 w-full flex justify-center">
+                <WorkExperience />
+            </div>
+          )}
+
+{activeSection === 'projects' && (
+            <div className="mt-10 w-full flex justify-center">
+                <Projects />
             </div>
           )}
 

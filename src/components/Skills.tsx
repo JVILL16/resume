@@ -52,7 +52,7 @@ export default function Skills() {
       {skillSections.map((section, idx) => (
         <div
           key={idx}
-          className="bg-black shadow-lg p-6 rounded-2xl w-72 text-center relative overflow-hidden transition transform hover:scale-105 hover:shadow-2xl"
+          className="relative bg-black border-white shadow-[0_0_15px_rgba(59,130,246,0.8)] p-6 rounded-2xl w-72 text-center overflow-hidden transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(59,130,246,1)]"
         >
           <h3 className="text-xl font-semibold mb-4">{section.title}</h3>
           <div className="grid grid-cols-3 gap-4">
