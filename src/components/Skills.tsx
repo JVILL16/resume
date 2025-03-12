@@ -2,6 +2,7 @@ import { FaJava, FaPython, FaJs, FaPhp, FaHtml5, FaCss3, FaReact, FaGitAlt, FaDa
 import { SiMysql, SiMongodb, SiPostgresql, SiSelenium, SiDotnet, SiAngular, SiPostman } from "react-icons/si";
 import { TbLetterC, TbBrandCSharp } from "react-icons/tb"; // C and C# icons
 import { GrServer } from "react-icons/gr"; // Server icon for SQL Server & Azure DevOps
+import { motion } from "framer-motion";
 
 const skillSections = [
   {
@@ -48,26 +49,50 @@ const skillSections = [
 
 export default function Skills() {
   return (
-    <div className="flex flex-wrap justify-center gap-6 p-6">
-      {skillSections.map((section, idx) => (
-        <div
-          key={idx}
-          className="relative bg-black border-white shadow-[0_0_15px_rgba(59,130,246,0.8)] p-6 rounded-2xl w-72 text-center overflow-hidden transition transform hover:scale-105 hover:shadow-[0_0_25px_rgba(59,130,246,1)]"
-        >
-          <h3 className="text-xl font-semibold mb-4">{section.title}</h3>
-          <div className="grid grid-cols-3 gap-4">
-            {section.skills.map((skill, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center p-3 transition transform hover:-translate-y-2"
-              >
-                <skill.icon className="text-4xl text-blue-500 transition-transform duration-300" />
-                <p className="mt-2 text-sm font-semibold opacity-80">{skill.name}</p>
-              </div>
-            ))}
-          </div>
+    <div className="py-14 px-8 bg-gray-900 text-white shadow-lg rounded-xl ">
+  <h2 className="text-3xl font-bold text-center mb-10">Skills</h2>
+  <div className="flex flex-wrap justify-center gap-6 text-center">
+    {skillSections.map((section, idx) => (
+      <motion.div
+        key={idx}
+        className="relative bg-gray-800 p-4 rounded-lg w-64 shadow-lg border border-transparent cursor-pointer
+                   hover:border-blue-400 transition-all duration-300"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: idx * 0.2 }}
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0px 0px 15px rgba(59, 130, 246, 0.6)",
+        }}
+        viewport={{ once: true }}
+      >
+        {/* Animated glowing border */}
+        <motion.div
+          className="absolute inset-0 rounded-lg border border-blue-500 opacity-0"
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: "easeInOut",
+          }}
+        ></motion.div>
+
+        <h3 className="text-lg font-semibold text-center mb-3">{section.title}</h3>
+        <div className="grid grid-cols-3 gap-3">
+          {section.skills.map((skill, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center p-2 transition transform hover:-translate-y-1"
+            >
+              <skill.icon className="text-3xl text-blue-500 transition-transform duration-300" />
+              <p className="mt-1 text-xs font-semibold opacity-80">{skill.name}</p>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </motion.div>
+    ))}
+  </div>
+</div>
+
   );
 }

@@ -15,7 +15,7 @@ export default function Feedback() {
   return (
     <motion.div
       className="bg-gray-900 text-white p-6 rounded-xl shadow-xl border border-transparent
-                 hover:border-blue-400 transition-all max-w-md mx-auto"
+                 hover:border-blue-400 transition-all w-[600px] mx-auto"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -80,7 +80,7 @@ export default function Feedback() {
             id="comments"
             value={comments}
             onChange={(e) => setComments(e.target.value)}
-            className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg 
+            className="mt-1 p-3 w-full h-32 resize-none bg-gray-800 border border-gray-600 rounded-lg 
                        focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
             placeholder="Enter your comments"
             rows={4}
