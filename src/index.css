@@ -23,10 +23,7 @@
 }
 
 
-body {
-  padding: 20px; /* Adjust as needed */
-  margin-left: 260px; /* Ensures space for the sidebar */
-}
+
 @media (max-width: 768px) {
   body {
     margin-left: 0; /* Remove margin for smaller screens */

@@ -39,13 +39,13 @@ const workExperience = [
 
 const WorkExperience = () => {
   return (
-    <div className="py-16 px-8 bg-gray-900 text-white">
+    <div className="py-14 px-8 bg-gray-900 text-white shadow-lg rounded-xl">
       <h2 className="text-3xl font-bold text-center mb-10">Work Experience</h2>
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex flex-wrap justify-center gap-6">
         {workExperience.map((job, index) => (
           <motion.div
             key={index}
-            className="relative bg-gray-800 p-6 rounded-lg w-96 shadow-lg border border-transparent cursor-pointer
+            className="relative bg-gray-800 p-4 rounded-lg w-96 shadow-lg border border-transparent cursor-pointer
                       hover:border-blue-400 transition-all duration-300"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}

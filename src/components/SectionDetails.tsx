@@ -52,7 +52,7 @@ export default function SectionDetails() {
         <>
 
             {/* Manila Folder Navigation */}
-            <div className="relative flex items-center justify-center w-full h-[300px] mt-10 overflow-visible">
+            <div className="relative flex flex-wrap justify-center w-full min-h-[400px]">
                 {records.map((record, index) => {
                     const isActive = record.id === activeSection;
                     const position = records.findIndex((r) => r.id === activeSection) - index;
@@ -95,13 +95,13 @@ export default function SectionDetails() {
                     return (
                         <motion.div
                             key={record.id}
-                            className="absolute flex flex-col items-center justify-center cursor-grab"
+                            className="absolute flex flex-col items-center justify-center cursor-grab "
                             style={{
                                 transformOrigin: "center",
                                 zIndex: isActive ? 10 : 5 - Math.abs(position),
                             }}
                             animate={{
-                                x: position * 200, // Controls horizontal spacing
+                                x: position * (window.innerWidth < 768 ? 100 : 200), // Controls horizontal spacing
                                 y: isActive ? -10 : 10, // Slight vertical offset for effect
                                 scale: isActive ? 1.2 : 0.8,
                                 opacity: isActive ? 1 : 0.5,
@@ -150,8 +150,8 @@ export default function SectionDetails() {
                                         scale: animationComplete ? 1 : 2, // Expand after initial animation
                                         opacity: 1, // Fade in to full opacity
                                         y: 200, // Move to final vertical position
-                                        width: animationComplete ? "1000px" : `${paper.width}px`, // Expand width after completion
-                                        height: animationComplete ? "200px" : `${paper.height}px`, // Expand height after completion
+                                        width: animationComplete ? "90vw" : "40vw",
+                                        height: animationComplete ? "auto" : "200px",
                                         //top: animationComplete ? `${paper.top*5}px`: `${paper.top*5}px`,
                                         right: animationComplete ? "-450px" : `${paper.right}px`
                                     }}
@@ -209,7 +209,7 @@ export default function SectionDetails() {
                 })}
 
             </div>
-            <div className="mt-70 w-full flex justify-center shadow-lg rounded-xl mb-5">
+            <div className="mt-10 w-screen max-w-full flex justify-center mb-5 px-4">
                 {activeSection === 'tools' && (
                     <Skills />
                 )}
