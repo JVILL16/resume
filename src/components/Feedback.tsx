@@ -14,8 +14,8 @@ export default function Feedback() {
 
   return (
     <motion.div
-      className="bg-gray-900 text-white p-6 rounded-xl shadow-xl border border-transparent
-                 hover:border-blue-400 transition-all w-[600px] mx-auto"
+      className="bg-gray-800 text-white p-6 rounded-xl shadow-xl border  w-[600px] mx-auto"
+      style={{ boxShadow: "0 0 5px rgba(255, 255, 255, 0.5)"}}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}

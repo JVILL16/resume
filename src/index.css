@@ -22,7 +22,14 @@
   color:rgb(0, 0, 0);
 }
 
+.sidebar::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
+}
 
+.sidebar {
+  -ms-overflow-style: none; /* For Internet Explorer */
+  scrollbar-width: none; /* For Firefox */
+}
 
 @media (max-width: 768px) {
   body {

@@ -87,7 +87,7 @@ const Projects = () => {
   const [activeTab, setActiveTab] = useState("Professional");
 
   return (
-    <div className="py-14 px-8 bg-gray-900 text-white shadow-lg rounded-xl">
+    <div className="py-14 px-8 bg-gray-900 text-white rounded-xl">
       <h2 className="text-3xl font-bold text-center mb-10">Projects</h2>
 
       {/* Tabs for Professional / Independent Projects */}

@@ -13,6 +13,7 @@ const records = [
 import Skills from './Skills';
 import WorkExperience from './Experience';
 import Projects from './Projects';
+import Summary from './Summary';
 
 export default function SectionDetails() {
     const [activeSection, setActiveSection] = useState("summary");
@@ -64,29 +65,29 @@ export default function SectionDetails() {
                             data: [
                                 {
                                     id: "summary",
-                                    title: "Summary",
-                                    content: "A brief introduction to my experience as a Full Stack Developer, highlighting my problem-solving skills, technical expertise, and passion for building efficient solutions."
-                                },
-                                {
+                                    content:
+                                      "As a Full Stack Developer, I have honed my ability to build scalable, maintainable, and efficient software solutions. My expertise spans both frontend and backend technologies, allowing me to create seamless user experiences and robust system architectures. I thrive on problem-solving, continuously seeking innovative approaches to tackle challenges, optimize performance, and enhance functionality. This section offers a high-level overview of my journey, highlighting my technical proficiency, adaptability, and passion for developing impactful solutions.",
+                                  },
+                                  {
                                     id: "experience",
-                                    title: "Experience",
-                                    content: "A showcase of my professional journey, detailing my roles, responsibilities, and contributions to various companies and projects."
-                                },
-                                {
+                                    content:
+                                      "This section outlines my professional career, detailing the roles and responsibilities I have undertaken in various organizations. It highlights my contributions to software development projects, team collaborations, and the technologies I have leveraged to deliver high-quality solutions. Expect to see insights into my problem-solving approach, leadership experience, and how my work has driven efficiency and innovation in different industries.",
+                                  },
+                                  {
                                     id: "education",
-                                    title: "Education",
-                                    content: "My academic background in Computer Science, with a focus on Software Engineering and Cybersecurity."
-                                },
-                                {
+                                    content:
+                                      "My educational background forms the foundation of my technical knowledge and problem-solving abilities. With a strong focus on Computer Science, Software Engineering, and Cybersecurity, I have gained a deep understanding of algorithms, data structures, system design, and security principles. This section showcases the institutions I attended, the key subjects I mastered, and any relevant certifications or achievements that have contributed to my growth as a developer.",
+                                  },
+                                  {
                                     id: "projects",
-                                    title: "Projects",
-                                    content: "A selection of professional and independent projects demonstrating my ability to build and improve software applications across different domains."
-                                },
-                                {
+                                    content:
+                                      "A curated selection of projects that demonstrate my technical expertise, creativity, and problem-solving skills. This section includes professional work, freelance projects, and personal endeavors that showcase my ability to develop software applications across different domains. Each project description provides insights into the technologies used, challenges overcome, and the impact of the solution. Whether it's web applications, APIs, automation scripts, or data-driven platforms, this section highlights my hands-on experience and passion for building effective solutions.",
+                                  },
+                                  {
                                     id: "tools",
-                                    title: "Skills",
-                                    content: "An overview of the programming languages, frameworks, databases, and tools I use to develop, optimize, and maintain software solutions."
-                                }
+                                    content:
+                                      "An in-depth overview of the programming languages, frameworks, tools, and technologies I am proficient in. This section covers my expertise in frontend and backend development, databases, cloud platforms, DevOps tools, and other essential technologies. Additionally, it touches on my approach to continuous learning, staying updated with industry trends, and refining my skills to adapt to new challenges.",
+                                  }
                             ]
                         }
                     ];
@@ -132,64 +133,72 @@ export default function SectionDetails() {
                                 />
                             ))}
 
-                            {/* Papers will animate and move out of the folder to the bottom */}
-                            {isActive && papers.slice(2, 3).map((paper) => (  // Use slice(0, 1) to only render one paper
+                            {/* Papers will animate and move smoothly into view for the resume site */}
+                            {isActive && papers.slice(2, 3).map((paper) => (
                                 <motion.div
                                     key={`paper-${paper.id}`}
-                                    className="absolute shadow-lg z-[2] p-4 rounded-lg "
+                                    className="absolute shadow-lg z-[2] p-1 rounded-lg"
                                     style={{
-                                        top: `${paper.top}px`, // Initial top position of paper
-                                        //right: `${paper.right}px`, // Same right position for all
-                                        // width: `${paper.width}px`,
-                                        // height: `${paper.height}px`,
-                                        //border: `2px solid white`, // Border color
-                                        backgroundColor: "black",
-                                        boxShadow: "0 0 20px rgba(255, 255, 255, 0.8)"
+                                        top: "50%", // Start centered vertically
+                                        left: "50%", // Start centered horizontally
+                                        transform: "translate(-50%, 100%)", // Ensure full center alignment
+                                        width: `${paper.width}px`, // Start with the paper's original width
+                                        minHeight: `${paper.height}px`, // Ensures smooth expansion
+                                        maxHeight: "75vh", // Prevents overflow
+                                        backgroundColor: "#ffffff", // Starts as white
+                                        boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)", // Softer shadow for professional look
                                     }}
                                     animate={{
-                                        scale: animationComplete ? 1 : 2, // Expand after initial animation
-                                        opacity: 1, // Fade in to full opacity
-                                        y: 200, // Move to final vertical position
-                                        width: animationComplete ? "90vw" : "40vw",
-                                        height: animationComplete ? "auto" : "200px",
-                                        //top: animationComplete ? `${paper.top*5}px`: `${paper.top*5}px`,
-                                        right: animationComplete ? "-450px" : `${paper.right}px`
+                                        scale: animationComplete ? 1 : 0.95, // Subtle zoom-in effect
+                                        opacity: 1, // Fade in smoothly
+                                        y: animationComplete ? 100 : 0, // Move down by 100px after expanding
+                                        width: animationComplete ? "40vw" : `${paper.width}px`, // Expand width but keep it within site bounds
+                                        maxHeight: animationComplete ? "60vh" : `${paper.height}px`, // Auto height after expanding
+                                        left: animationComplete ? "50%" : "50%", // Keep it centered after expanding
+                                        transform: animationComplete ? "translate(-50%, 80%)" : "translate(-50%, 200%)", // Ensure full center alignment
+                                        backgroundColor: animationComplete ? "#1f2937" : "#ffffff", // Transition from white to gray
                                     }}
                                     initial={{
-                                        scale: 0, // Start small
-                                        boxShadow: "0 0 5px rgba(255, 255, 255, 0.5)"
+                                        scale: 0.8, // Start slightly scaled down
+                                        opacity: 0, // Start fully transparent
+                                        y: 0, // Start at the center vertically
+                                        backgroundColor: "#ffffff", // Starts white
+                                        boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)", // Start with a soft shadow
                                     }}
                                     transition={{
-                                        type: "spring",
-                                        stiffness: 60,
-                                        damping: 15,
-                                        duration: animationComplete ? 0.6 : 0.3, // Use a shorter duration for the final expansion
+                                        scale: { type: "spring", stiffness: 50, damping: 25, duration: 0.6 }, // Smooth zoom-in effect
+                                        opacity: { duration: 0.5 }, // Fade in
+                                        y: { type: "spring", stiffness: 70, damping: 25, duration: 0.8 }, // Smooth vertical movement down
+                                        width: { duration: 0.6 }, // Smooth width transition
+                                        height: { duration: 0.6 }, // Smooth height transition
+                                        left: { duration: 0.6 }, // Keep it centered
+                                        backgroundColor: { duration: 1.5 }, // Smooth transition from white to gray
                                     }}
                                     onAnimationComplete={handleAnimationComplete} // Trigger content animation after paper animation completes
                                 >
-
                                     {/* Content inside the paper */}
                                     {showContent && animationComplete && (
-
                                         <motion.div
-                                            className="p-5 "
+                                            className="p-5"
                                             initial={{ opacity: 0 }} // Start with opacity 0 (hidden)
                                             animate={{ opacity: 1 }} // Fade in to opacity 1
-                                            transition={{ duration: 5 }} // Adjust the duration of the fade-in as needed
+                                            transition={{ duration: 0.7, delay: 0.4 }} // Fade in sections with a delay for smooth appearance
                                         >
                                             {paper.data
                                                 .filter((section) => section.id === activeSection) // Filter the data by active section
                                                 .map((section) => (
-                                                    <div className="text-sm text-white font-bold " key={section.title}>
-                                                        <h2>{section.title}</h2>
+                                                    <div className="text-sm text-white font-semibold" key={section.id}>
                                                         <p>{section.content}</p>
                                                     </div>
                                                 ))}
                                         </motion.div>
                                     )}
                                 </motion.div>
-
                             ))}
+
+
+
+
 
                             {/* SVG Folder Icon */}
                             <div className="icon-container relative z-10">
@@ -210,6 +219,9 @@ export default function SectionDetails() {
 
             </div>
             <div className="mt-10 w-screen max-w-full flex justify-center mb-5 px-4">
+                {activeSection === 'summary' && (
+                    <Summary />
+                )}
                 {activeSection === 'tools' && (
                     <Skills />
                 )}

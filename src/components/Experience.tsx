@@ -37,9 +37,9 @@ const workExperience = [
   },
 ];
 
-const WorkExperience = () => {
+export default function WorkExperience () {
   return (
-    <div className="py-14 px-8 bg-gray-900 text-white shadow-lg rounded-xl">
+    <div className="py-14 px-8 bg-gray-900 text-white rounded-xl">
       <h2 className="text-3xl font-bold text-center mb-10">Work Experience</h2>
       <div className="flex flex-wrap justify-center gap-6">
         {workExperience.map((job, index) => (
@@ -82,4 +82,3 @@ const WorkExperience = () => {
   );
 };
 
-export default WorkExperience;

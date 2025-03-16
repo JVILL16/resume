@@ -49,7 +49,7 @@ const skillSections = [
 
 export default function Skills() {
   return (
-    <div className="py-14 px-8 bg-gray-900 text-white shadow-lg rounded-xl ">
+    <div className="py-14 px-8 bg-gray-900 text-white rounded-xl ">
   <h2 className="text-3xl font-bold text-center mb-10">Skills</h2>
   <div className="flex flex-wrap justify-center gap-6 text-center">
     {skillSections.map((section, idx) => (
