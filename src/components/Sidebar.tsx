@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef  } from 'react';
-import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown, FaDownload } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown, FaDownload, FaLinkedin } from 'react-icons/fa';
 
 const quotes = [
   "The only way to do great work is to love what you do. - Steve Jobs",
@@ -8,11 +8,11 @@ const quotes = [
   "First, solve the problem. Then, write the code. - John Johnson"
 ];
 const developing = [
-  "📖 React with TypeScript",
-  "📖 Angular PHP Website",
-  "📖 Selenium Web Scraping",
-  "📖 Python cv2 Video Capture",
-  "📖 AWS Certification Courses",
+  "React with TypeScript",
+  "Angular PHP Website",
+  "Selenium Web Scraping",
+  "Python cv2 Video Capture",
+  "AWS Certification Courses",
 ];
 
 const techStack = [
@@ -31,6 +31,9 @@ export default function Sidebar() {
   const [darkMode, setDarkMode] = useState(false);
   const [quote, setQuote] = useState<string>(quotes[Math.floor(Math.random() * quotes.length)]);
   const [isTechExpanded, setIsTechExpanded] = useState(false); // Tech Stack Toggle
+  const [isAgendaExpanded, setIsAgendaExpanded] = useState(false); // Development Agenda Toggle
+  const [isBioExpanded, setIsBioExpanded] = useState(true); // Bio Toggle
+
 
 
   useEffect(() => {
@@ -50,54 +53,84 @@ export default function Sidebar() {
       <img
         src="/pfp-jheremi.png"
         alt="Profile"
-        className="w-24 h-24 rounded-full border-4 border-yellow-500 !mb-4"
+        className="w-24 h-24 rounded-full border-4 border-yellow-500 "
       />
       <h2 className="text-lg font-semibold !mt-4">Jheremi Villarreal</h2>
       <p className="text-xs text-gray-400">Full Stack Developer</p>
 
-      <div className="mt-4 text-center">
-        <p><span className="font-semibold">City:</span> San Antonio, TX</p>
-        <p><span className="font-semibold">Age:</span> 28</p>
-        <p><span className="font-semibold">Residence:</span> USA</p>
+      {/* Bio Section with Toggle */}
+      <div className="mt-4 w-full">
+        <button
+          onClick={() => setIsBioExpanded(!isBioExpanded)}
+          className="w-full flex justify-between items-center bg-gray-700 !px-2 !py-2 !rounded-md text-white !text-xs"
+        >
+          <span>📜 Bio</span>
+          {isBioExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+        </button>
+
+        {/* Bio Information */}
+        <div
+          className={`transition-all duration-500  ${isBioExpanded ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0 overflow-hidden pointer-events-none"}`}
+        >
+          <div className="text-left text-xs p-1">
+            <p><span className="font-semibold text-[14px] underline">Location:</span> </p>
+            <p><span>San Antonio, TX, USA</span></p>
+            <br />
+            <p><span className="font-semibold text-[14px] underline">Available for:</span> </p>
+            <p><span>Available for full-time remote positions, open to relocation for in-office roles, or freelance projects.</span></p>
+            <br />
+            <p><span className="font-semibold text-[14px] underline">Contact:</span> </p>
+            <p><span>jheremi2015@gmail.com</span></p>
+          </div>
+        </div>
       </div>
 
       {/* Years of Experience */}
-      <div className="mt-6 w-full text-left">
+      {/* <div className="mt-6 w-full text-left">
         <p className="font-semibold !text-sm">🚀 4+ Years of Dev Experience</p>
-      </div>
+      </div> */}
 
-      {/* Currently Learning */}
-      <div className="mt-4 w-full text-left">
-        <p className="font-semibold underline">Development Agenda:</p>
-        
-        {developing.map((dev) => (
-          <p className="text-sm">{dev}</p>
-        ))}
-        
+      {/* Currently Learning (Updated to Toggle) */}
+      <div className="mt-2 w-full">
+        <button
+          onClick={() => setIsAgendaExpanded(!isAgendaExpanded)}
+          className="w-full flex justify-between items-center bg-gray-700 !px-2 !py-2 !rounded-md text-white !text-xs"
+        >
+          <span>📖 On My Plate</span>
+          {isAgendaExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+        </button>
+
+        {/* Development Agenda List */}
+        <div
+          className={`transition-all duration-500 overflow-hidden ${isAgendaExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 overflow-hidden pointer-events-none"}`}
+        >
+          {developing.map((dev, index) => (
+            <p key={index} className="text-sm mt-2">{dev}</p>
+          ))}
+        </div>
       </div>
 
       {/* Tech Stack Section with Toggle */}
-      <div className="mt-6 w-full">
-        <button 
-          onClick={() => setIsTechExpanded(!isTechExpanded)} 
-          className="w-full flex justify-between items-center bg-gray-700 !px-3 !py-2 rounded-md text-white !text-sm"
+      <div className="mt-2 w-full">
+        <button
+          onClick={() => setIsTechExpanded(!isTechExpanded)}
+          className="w-full flex justify-between items-center bg-gray-700 !px-2 !py-2 !rounded-md text-white !text-xs"
         >
           <span>💻 Tech Stack</span>
           {isTechExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
         </button>
 
         {/* Tech Stack Progress Bars */}
-        <div 
-          className={`transition-all duration-500 overflow-hidden ${
-            isTechExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-          }`}
+        <div
+          className={`transition-all duration-500 overflow-hidden ${isTechExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 overflow-hidden pointer-events-none"
+            }`}
         >
           {techStack.map((tech) => (
             <div key={tech.name} className="space-y-2 mt-2">
               <p className="text-xs">{tech.name}</p>
               <div className="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
-                <div 
-                  className="bg-yellow-500 h-full transition-all duration-500" 
+                <div
+                  className="bg-yellow-500 h-full transition-all duration-500"
                   style={{ width: isTechExpanded ? `${tech.percentage}%` : "0%" }}
                 ></div>
               </div>
@@ -107,51 +140,52 @@ export default function Sidebar() {
       </div>
 
       {/* Code Snippet of the Day */}
-      <div className="mt-6 w-full text-left">
+      {/* <div className="mt-6 w-full text-left">
         <p className="font-semibold">Code Snippet of the Day</p>
         <code className="block bg-gray-700 p-2 rounded text-xs !font-mono">
           {"const greet = () => console.log('Hello, World!');"}
         </code>
-      </div>
+      </div> */}
 
       {/* Random Developer Quote */}
-      <div className="mt-6 w-full text-left">
+      <div className="mt-6 w-full text-left text-xs">
         <p className="font-semibold">Quote of the Day</p>
         <p>"{quote}"</p>
       </div>
 
-      {/* Dark Mode Toggle */}
-      <div className="mt-6 w-full flex items-center justify-center">
-        <button onClick={toggleDarkMode}
-         className="flex items-center justify-center py-1 px-2 rounded-lg !text-xs"
-         style={{
-          backgroundColor: darkMode ? "white" : "black",
-          color: darkMode ? "black" : "white"
-         }}>
-          {darkMode ? <FaSun size={16} /> : <FaMoon size={16} />}
-          <span className="ml-2">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
-        </button>
-      </div>
 
+      {/* Download CV Button */}
+      <div className="mt-6 w-full flex items-center justify-center">
+        <a href="/Resume_2025_Jheremi_V.pdf" download="Resume_2025_Jheremi_V.pdf" className="flex items-center justify-center !bg-blue-500 !text-white !py-1 !px-2 rounded-sm !text-xs">
+          <FaDownload size={10} /><span className="ml-2"> Download Resume</span>
+        </a>
+      </div>
       {/* Social Links */}
       <div className="mt-6 w-full flex justify-center space-x-4">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
+        <a href="https://github.com/JVILL16" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
           <FaGithub size={20} />
         </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
-          <FaTwitter size={20} />
+        <a href="https://www.linkedin.com/in/jheremi-villarreal-b05850138" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
+          <FaLinkedin size={20} />
         </a>
         <a href="https://www.buymeacoffee.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
           <FaBeer size={20} />
         </a>
       </div>
-
-      {/* Download CV Button */}
+      {/* Dark Mode Toggle */}
       <div className="mt-6 w-full flex items-center justify-center">
-        <button className="flex items-center justify-center !bg-blue-500 text-white !py-1 !px-4 rounded-lg !text-xs">
-          <FaDownload size={10}/><span className="ml-2"> Download Resume</span>
+        <button onClick={toggleDarkMode}
+          className="flex items-center justify-center py-1 px-2 rounded-lg !text-xs"
+          style={{
+            backgroundColor: darkMode ? "white" : "black",
+            color: darkMode ? "black" : "white"
+          }}>
+          {darkMode ? <FaSun size={16} /> : <FaMoon size={16} />}
+          <span className="ml-2">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
       </div>
+
     </div>
+
   );
 };

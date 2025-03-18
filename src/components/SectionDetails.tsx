@@ -1,7 +1,11 @@
-import '../styles/Home.css'
+import '../styles/Home.css';
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaUser, FaBriefcase, FaProjectDiagram, FaGraduationCap, FaFolder, FaTools } from "react-icons/fa";
+import Skills from './Skills';
+import WorkExperience from './Experience';
+import Projects from './Projects';
+import Summary from './Summary';
 
 const records = [
     { id: "education", title: "Education", icon: <FaGraduationCap size={25} /> },
@@ -10,19 +14,40 @@ const records = [
     { id: "tools", title: "Skills", icon: <FaTools size={25} /> },
     { id: "summary", title: "About Me", icon: <FaUser size={25} /> }
 ];
-import Skills from './Skills';
-import WorkExperience from './Experience';
-import Projects from './Projects';
-import Summary from './Summary';
+
+const sectionContent : any = {
+    summary: {
+        title: "About Me",
+        content: "As a Full Stack Developer, I have honed my ability to build scalable, maintainable, and efficient software solutions. My expertise spans both frontend and backend technologies, allowing me to create seamless user experiences and robust system architectures. I thrive on problem-solving, continuously seeking innovative approaches to tackle challenges, optimize performance, and enhance functionality. This section offers a high-level overview of my journey, highlighting my technical proficiency, adaptability, and passion for developing impactful solutions.",
+        image: "/pfp-jheremi.png"
+    },
+    experience: {
+        title: "Work Experience",
+        content: "This section outlines my professional career, detailing the roles and responsibilities I have undertaken in various organizations. It highlights my contributions to software development projects, team collaborations, and the technologies I have leveraged to deliver high-quality solutions. Expect to see insights into my problem-solving approach, leadership experience, and how my work has driven efficiency and innovation in different industries.",
+        image: "/images/experience.jpg"
+    },
+    education: {
+        title: "Education",
+        content: "My educational background forms the foundation of my technical knowledge and problem-solving abilities. With a strong focus on Computer Science, Software Engineering, and Cybersecurity, I have gained a deep understanding of algorithms, data structures, system design, and security principles. This section showcases the institutions I attended, the key subjects I mastered, and any relevant certifications or achievements that have contributed to my growth as a developer.",
+        image: "/images/education.jpg"
+    },
+    projects: {
+        title: "Projects",
+        content: "A curated selection of projects that demonstrate my technical expertise, creativity, and problem-solving skills. This section includes professional work, freelance projects, and personal endeavors that showcase my ability to develop software applications across different domains. Each project description provides insights into the technologies used, challenges overcome, and the impact of the solution. Whether it's web applications, APIs, automation scripts, or data-driven platforms, this section highlights my hands-on experience and passion for building effective solutions.",
+        image: "/images/projects.jpg"
+    },
+    tools: {
+        title: "Skills & Tools",
+        content: "An in-depth overview of the programming languages, frameworks, tools, and technologies I am proficient in. This section covers my expertise in frontend and backend development, databases, cloud platforms, DevOps tools, and other essential technologies. Additionally, it touches on my approach to continuous learning, staying updated with industry trends, and refining my skills to adapt to new challenges.",
+        image: "/images/tools.jpg"
+    }
+};
 
 export default function SectionDetails() {
     const [activeSection, setActiveSection] = useState("summary");
-    const [animationComplete, setAnimationComplete] = useState(false);
-    const [showContent, setShowContent] = useState(false); // New state to control content visibility
 
     const handleDragEnd = (_: any, info: any) => {
         const threshold = 120;
-
         if (info.offset.x > threshold) {
             setActiveSection((prev) => {
                 const currentIndex = records.findIndex((r) => r.id === prev);
@@ -36,76 +61,28 @@ export default function SectionDetails() {
         }
     };
 
-    useEffect(() => {
-        setAnimationComplete(false);
-        setShowContent(false);
-    }, [activeSection]);
-
-    // Reset content visibility when animation is completed
-    const handleAnimationComplete = () => {
-        setAnimationComplete(true);
-        setTimeout(() => {
-            setShowContent(true); // Show content after a delay (when expansion is complete)
-        }, 600); // 600ms delay (matches the animation duration)
-    };
-
     return (
-        <>
-
+        <div className="w-full flex flex-col items-center">
             {/* Manila Folder Navigation */}
-            <div className="relative flex flex-wrap justify-center w-full min-h-[400px]">
+            <div className="relative flex flex-wrap justify-center w-full min-h-[200px]">
                 {records.map((record, index) => {
                     const isActive = record.id === activeSection;
                     const position = records.findIndex((r) => r.id === activeSection) - index;
                     const papers = [
-                        { id: 1, top: 15, right: 5, width: 40, height: 60, color: 'green', data: [] },
-                        { id: 2, top: 15, right: 25, width: 40, height: 60, color: 'red', data: [] },
-                        {
-                            id: 3, top: 15, right: 45, width: 40, height: 60, color: 'blue',
-                            data: [
-                                {
-                                    id: "summary",
-                                    content:
-                                      "As a Full Stack Developer, I have honed my ability to build scalable, maintainable, and efficient software solutions. My expertise spans both frontend and backend technologies, allowing me to create seamless user experiences and robust system architectures. I thrive on problem-solving, continuously seeking innovative approaches to tackle challenges, optimize performance, and enhance functionality. This section offers a high-level overview of my journey, highlighting my technical proficiency, adaptability, and passion for developing impactful solutions.",
-                                  },
-                                  {
-                                    id: "experience",
-                                    content:
-                                      "This section outlines my professional career, detailing the roles and responsibilities I have undertaken in various organizations. It highlights my contributions to software development projects, team collaborations, and the technologies I have leveraged to deliver high-quality solutions. Expect to see insights into my problem-solving approach, leadership experience, and how my work has driven efficiency and innovation in different industries.",
-                                  },
-                                  {
-                                    id: "education",
-                                    content:
-                                      "My educational background forms the foundation of my technical knowledge and problem-solving abilities. With a strong focus on Computer Science, Software Engineering, and Cybersecurity, I have gained a deep understanding of algorithms, data structures, system design, and security principles. This section showcases the institutions I attended, the key subjects I mastered, and any relevant certifications or achievements that have contributed to my growth as a developer.",
-                                  },
-                                  {
-                                    id: "projects",
-                                    content:
-                                      "A curated selection of projects that demonstrate my technical expertise, creativity, and problem-solving skills. This section includes professional work, freelance projects, and personal endeavors that showcase my ability to develop software applications across different domains. Each project description provides insights into the technologies used, challenges overcome, and the impact of the solution. Whether it's web applications, APIs, automation scripts, or data-driven platforms, this section highlights my hands-on experience and passion for building effective solutions.",
-                                  },
-                                  {
-                                    id: "tools",
-                                    content:
-                                      "An in-depth overview of the programming languages, frameworks, tools, and technologies I am proficient in. This section covers my expertise in frontend and backend development, databases, cloud platforms, DevOps tools, and other essential technologies. Additionally, it touches on my approach to continuous learning, staying updated with industry trends, and refining my skills to adapt to new challenges.",
-                                  }
-                            ]
-                        }
+                        { id: 1, top: 15, right: 5, width: 40, height: 60, color: 'green' },
+                        { id: 2, top: 15, right: 25, width: 40, height: 60, color: 'red'},
+                        { id: 3, top: 15, right: 45, width: 40, height: 60, color: 'blue'}
                     ];
-
-
                     return (
                         <motion.div
                             key={record.id}
-                            className="absolute flex flex-col items-center justify-center cursor-grab "
-                            style={{
-                                transformOrigin: "center",
-                                zIndex: isActive ? 10 : 5 - Math.abs(position),
-                            }}
+                            className="absolute flex flex-col items-center cursor-grab"
+                            style={{ zIndex: isActive ? 10 : 5 - Math.abs(position) }}
                             animate={{
-                                x: position * (window.innerWidth < 768 ? 100 : 200), // Controls horizontal spacing
-                                y: isActive ? -10 : 10, // Slight vertical offset for effect
+                                x: position * (window.innerWidth < 768 ? 100 : 200),
+                                y: isActive ? -10 : 10,
                                 scale: isActive ? 1.2 : 0.8,
-                                opacity: isActive ? 1 : 0.5,
+                                opacity: isActive ? 1 : 0.5
                             }}
                             drag={isActive ? "x" : false}
                             dragConstraints={{ left: 0, right: 0 }}
@@ -133,106 +110,65 @@ export default function SectionDetails() {
                                 />
                             ))}
 
-                            {/* Papers will animate and move smoothly into view for the resume site */}
-                            {isActive && papers.slice(2, 3).map((paper) => (
-                                <motion.div
-                                    key={`paper-${paper.id}`}
-                                    className="absolute shadow-lg z-[2] p-1 rounded-lg"
-                                    style={{
-                                        top: "50%", // Start centered vertically
-                                        left: "50%", // Start centered horizontally
-                                        transform: "translate(-50%, 100%)", // Ensure full center alignment
-                                        width: `${paper.width}px`, // Start with the paper's original width
-                                        minHeight: `${paper.height}px`, // Ensures smooth expansion
-                                        maxHeight: "75vh", // Prevents overflow
-                                        backgroundColor: "#ffffff", // Starts as white
-                                        boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)", // Softer shadow for professional look
-                                    }}
-                                    animate={{
-                                        scale: animationComplete ? 1 : 0.95, // Subtle zoom-in effect
-                                        opacity: 1, // Fade in smoothly
-                                        y: animationComplete ? 100 : 0, // Move down by 100px after expanding
-                                        width: animationComplete ? "40vw" : `${paper.width}px`, // Expand width but keep it within site bounds
-                                        maxHeight: animationComplete ? "60vh" : `${paper.height}px`, // Auto height after expanding
-                                        left: animationComplete ? "50%" : "50%", // Keep it centered after expanding
-                                        transform: animationComplete ? "translate(-50%, 80%)" : "translate(-50%, 200%)", // Ensure full center alignment
-                                        backgroundColor: animationComplete ? "#1f2937" : "#ffffff", // Transition from white to gray
-                                    }}
-                                    initial={{
-                                        scale: 0.8, // Start slightly scaled down
-                                        opacity: 0, // Start fully transparent
-                                        y: 0, // Start at the center vertically
-                                        backgroundColor: "#ffffff", // Starts white
-                                        boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)", // Start with a soft shadow
-                                    }}
-                                    transition={{
-                                        scale: { type: "spring", stiffness: 50, damping: 25, duration: 0.6 }, // Smooth zoom-in effect
-                                        opacity: { duration: 0.5 }, // Fade in
-                                        y: { type: "spring", stiffness: 70, damping: 25, duration: 0.8 }, // Smooth vertical movement down
-                                        width: { duration: 0.6 }, // Smooth width transition
-                                        height: { duration: 0.6 }, // Smooth height transition
-                                        left: { duration: 0.6 }, // Keep it centered
-                                        backgroundColor: { duration: 1.5 }, // Smooth transition from white to gray
-                                    }}
-                                    onAnimationComplete={handleAnimationComplete} // Trigger content animation after paper animation completes
-                                >
-                                    {/* Content inside the paper */}
-                                    {showContent && animationComplete && (
-                                        <motion.div
-                                            className="p-5"
-                                            initial={{ opacity: 0 }} // Start with opacity 0 (hidden)
-                                            animate={{ opacity: 1 }} // Fade in to opacity 1
-                                            transition={{ duration: 0.7, delay: 0.4 }} // Fade in sections with a delay for smooth appearance
-                                        >
-                                            {paper.data
-                                                .filter((section) => section.id === activeSection) // Filter the data by active section
-                                                .map((section) => (
-                                                    <div className="text-sm text-white font-semibold" key={section.id}>
-                                                        <p>{section.content}</p>
-                                                    </div>
-                                                ))}
-                                        </motion.div>
-                                    )}
-                                </motion.div>
-                            ))}
-
-
-
-
-
-                            {/* SVG Folder Icon */}
+                            {/* Folder Icon */}
                             <div className="icon-container relative z-10">
                                 <FaFolder size={120} className="text-yellow-500 text-8xl drop-shadow-md" />
-                                <div className="notification-dot">
-                                    {record.icon}
-                                </div>
+                                <div className="notification-dot">{record.icon}</div>
                             </div>
 
                             {/* Folder Label */}
                             <h2 className="text-md font-bold mt-2">{record.title}</h2>
-
-
                         </motion.div>
                     );
-
                 })}
-
             </div>
+
+            {/* Title Card Section Directly Under Folders */}
+            <motion.div
+                key={activeSection}
+                className="mt-10 flex flex-col md:flex-row w-[80vw] max-w-4xl min-h-[50vh] bg-gray-900 text-white rounded-lg shadow-xl overflow-hidden"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ type: "spring", stiffness: 60, damping: 12 }}
+            >
+                {/* Left Side - Image */}
+                <motion.div
+                    className="w-full md:w-1/3 flex items-center justify-center bg-gray-800 p-3"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <img 
+                        src={sectionContent[activeSection]?.image} 
+                        alt={sectionContent[activeSection]?.title}
+                        className="w-full h-auto object-cover rounded-lg"
+                    />
+                </motion.div>
+
+                {/* Right Side - Text Content */}
+                <motion.div
+                    className="w-full md:w-2/3 p-6"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                    <h2 className="text-2xl font-bold mb-4">
+                        {sectionContent[activeSection]?.title}
+                    </h2>
+                    <p className="text-lg leading-relaxed">
+                        {sectionContent[activeSection]?.content}
+                    </p>
+                </motion.div>
+            </motion.div>
+
+            {/* 🟢 Keeps the components (Summary, Skills, Experience, Projects) below the title card */}
             <div className="mt-10 w-screen max-w-full flex justify-center mb-5 px-4">
-                {activeSection === 'summary' && (
-                    <Summary />
-                )}
-                {activeSection === 'tools' && (
-                    <Skills />
-                )}
-                {activeSection === 'experience' && (
-                    <WorkExperience />
-                )}
-                {activeSection === 'projects' && (
-                    <Projects />
-                )}
+                {activeSection === 'summary' && <Summary />}
+                {activeSection === 'tools' && <Skills />}
+                {activeSection === 'experience' && <WorkExperience />}
+                {activeSection === 'projects' && <Projects />}
             </div>
-
-        </>
+        </div>
     );
 }

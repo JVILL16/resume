@@ -3,10 +3,18 @@ import Feedback from "./Feedback";
 
 import SectionDetails from './SectionDetails';
 
+import { animate, motion, useMotionValue, useTransform } from "framer-motion"
+import { useEffect } from "react"
 
 export default function Home() {
 
+  const count = useMotionValue(0)
+  const rounded = useTransform(() => Math.round(count.get()))
 
+  useEffect(() => {
+      const controls = animate(count, 100, { duration: 5 })
+      return () => controls.stop()
+  }, [])
 
 
   return (
@@ -38,12 +46,12 @@ export default function Home() {
         </section>
 
         {/* Stats Section */}
-        <section className="grid grid-cols-4 text-center text-yellow-500 font-semibold text-xl mt-6">
-          <div><span className="text-3xl">10+</span> <p className="text-gray-400 text-sm">Years Experience</p></div>
+        {/* <section className="grid grid-cols-4 text-center text-yellow-500 font-semibold text-xl mt-6">
+          <div><span className="text-3xl"><motion.pre>{rounded}</motion.pre></span> <p className="text-gray-400 text-sm">Years Experience</p></div>
           <div><span className="text-3xl">143</span> <p className="text-gray-400 text-sm">Completed Projects</p></div>
-          <div><span className="text-3xl">114</span> <p className="text-gray-400 text-sm">Happy Customers</p></div>
+          <div><span className="text-3xl">114</span> <p className="text-gray-400 text-sm">Hours</p></div>
           <div><span className="text-3xl">20+</span> <p className="text-gray-400 text-sm">Awards</p></div>
-        </section>
+        </section> */}
 
         {/* Grid Section  grid grid-cols-3 gap-6*/}
         <div className="grid grid-cols-1 mt-15">
