@@ -77,7 +77,7 @@ export default function Sidebar() {
             <p><span>San Antonio, TX, USA</span></p>
             <br />
             <p><span className="font-semibold text-[14px] underline">Available for:</span> </p>
-            <p><span>Available for full-time remote positions, open to relocation for in-office roles, or freelance projects.</span></p>
+            <p><span>Full-time remote positions, open to relocation for in-office roles, or freelance projects.</span></p>
             <br />
             <p><span className="font-semibold text-[14px] underline">Contact:</span> </p>
             <p><span>jheremi2015@gmail.com</span></p>
@@ -173,7 +173,7 @@ export default function Sidebar() {
         </a>
       </div>
       {/* Dark Mode Toggle */}
-      <div className="mt-6 w-full flex items-center justify-center">
+      {/* <div className="mt-6 w-full flex items-center justify-center">
         <button onClick={toggleDarkMode}
           className="flex items-center justify-center py-1 px-2 rounded-lg !text-xs"
           style={{
@@ -183,7 +183,7 @@ export default function Sidebar() {
           {darkMode ? <FaSun size={16} /> : <FaMoon size={16} />}
           <span className="ml-2">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
-      </div>
+      </div> */}
 
     </div>
 

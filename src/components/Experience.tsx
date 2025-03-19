@@ -40,7 +40,7 @@ const workExperience = [
 export default function WorkExperience () {
   return (
     <div className="py-14 px-8 bg-gray-900 text-white rounded-xl">
-      <h1 className="text-4xl text-center font-extrabold text-white mb-6 tracking-wide">Work Experience</h1>
+      <h1 className="text-4xl text-center font-extrabold text-white mb-15 tracking-wide">Roles That Shaped Me</h1>
       <div className="flex flex-wrap justify-center gap-6">
         {workExperience.map((job, index) => (
           <motion.div

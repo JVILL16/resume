@@ -88,7 +88,7 @@ const Projects = () => {
 
   return (
     <div className="py-14 px-8 bg-gray-900 text-white rounded-xl">
-      <h1 className="text-4xl text-center font-extrabold text-white mb-6 tracking-wide">Projects</h1>
+      <h1 className="text-4xl text-center font-extrabold text-white mb-15 tracking-wide">Where Vision Meets Execution</h1>
 
       {/* Tabs for Professional / Independent Projects */}
       <div className="flex justify-center gap-6 mb-8">

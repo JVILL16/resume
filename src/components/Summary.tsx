@@ -41,7 +41,7 @@ export default function Summary() {
 
   return (
     <div className="py-14 px-8 bg-gray-900 text-gray-300 rounded-xl">
-      <h1 className="text-4xl text-center font-extrabold text-white mb-6 tracking-wide">About Me</h1>
+      <h1 className="text-4xl text-center font-extrabold text-white mb-15 tracking-wide">Common Questions, Clear Answers</h1>
       <div className="relative border-l-2 border-gray-700 pl-8">
         {summaries.map((item, index) => (
           <motion.div
