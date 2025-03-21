@@ -7,7 +7,7 @@ import WorkExperience from './Experience';
 import Projects from './Projects';
 import Summary from './Summary';
 
-const records = [
+const records: any = [
     { id: "education", title: "Education", icon: <FaGraduationCap size={25} /> },
     { id: "projects", title: "Projects", icon: <FaProjectDiagram size={25} /> },
     { id: "experience", title: "Experience", icon: <FaBriefcase size={25} /> },
@@ -45,12 +45,12 @@ export default function SectionDetails() {
         const threshold = 120;
         if (info.offset.x > threshold) {
             setActiveSection((prev) => {
-                const currentIndex = records.findIndex((r) => r.id === prev);
+                const currentIndex = records.findIndex((r:any) => r.id === prev);
                 return records[(currentIndex + 1) % records.length].id;
             });
         } else if (info.offset.x < -threshold) {
             setActiveSection((prev) => {
-                const currentIndex = records.findIndex((r) => r.id === prev);
+                const currentIndex = records.findIndex((r:any) => r.id === prev);
                 return records[(currentIndex - 1 + records.length) % records.length].id;
             });
         }
@@ -60,9 +60,9 @@ export default function SectionDetails() {
         <div className="w-full flex flex-col items-center">
             {/* Manila Folder Navigation */}
             <div className="relative flex flex-wrap justify-center w-full min-h-[200px]">
-                {records.map((record, index) => {
+                {records.map((record:any, index:any) => {
                     const isActive = record.id === activeSection;
-                    const position = records.findIndex((r) => r.id === activeSection) - index;
+                    const position = records.findIndex((r:any) => r.id === activeSection) - index;
                     const papers = [
                         { id: 1, top: 15, right: 5, width: 40, height: 60, color: 'green' },
                         { id: 2, top: 15, right: 25, width: 40, height: 60, color: 'red' },

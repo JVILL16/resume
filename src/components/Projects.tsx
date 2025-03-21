@@ -75,6 +75,10 @@ const projects: any  = {
       title: "Contract-Manager Site",
       description: "Developed features for legal contract management, ensuring compliance and security.",
     },
+    {
+      title: "Task Manager",
+      description: "Creating a project management tool ",
+    },
   ],
 };
 

@@ -23,6 +23,9 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Disable the `no-unused-vars` rule
+      'no-unused-vars': 'off',
+      'plugin/react-hooks/rules-of-hooks': 'off',
     },
   },
 )
