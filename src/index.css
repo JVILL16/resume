@@ -107,3 +107,21 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+

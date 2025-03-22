@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown, FaDownload, FaLinkedin } from 'react-icons/fa';
+import '../styles/Sidebar.css'
 
-const quotes = [
-  "The only way to do great work is to love what you do. - Steve Jobs",
-  "Code is like humor. When you have to explain it, it’s bad. - Cory House",
-  "I’m not a great programmer; I’m just a good programmer with great habits. - Kent Beck",
-  "First, solve the problem. Then, write the code. - John Johnson"
-];
+interface Quote {
+  content: string;
+  author: string;
+}
+
+
 const developing = [
   "React with TypeScript",
   "Angular PHP Website",
@@ -29,15 +30,31 @@ const techStack = [
 
 export default function Sidebar() {
   const [darkMode, setDarkMode] = useState(false);
-  const [quote, setQuote] = useState<string>(quotes[Math.floor(Math.random() * quotes.length)]);
+  const [quote, setQuote] = useState<Quote | null>(null);
   const [isTechExpanded, setIsTechExpanded] = useState(false); // Tech Stack Toggle
   const [isAgendaExpanded, setIsAgendaExpanded] = useState(false); // Development Agenda Toggle
   const [isBioExpanded, setIsBioExpanded] = useState(true); // Bio Toggle
 
+  const [loading, setLoading] = useState<boolean>(true);  // ✅ Added loading state
+  const [error, setError] = useState<string | null>(null);
 
 
   useEffect(() => {
-    setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    const fetchQuote = async () => {
+      setLoading(true);  // ✅ Set loading to true before fetching
+      try {
+        const response = await fetch("https://api.quotable.io/random");//https://quoteapi.pythonanywhere.com/
+        if (!response.ok) throw new Error("Failed to fetch quote"); // ✅ Error handling
+        const data: Quote = await response.json();
+        setQuote(data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);  // ✅ Set loading to false after fetching (success or error)
+      }
+    };
+
+    fetchQuote();
   }, []);
 
   const toggleDarkMode = () => {
@@ -58,32 +75,38 @@ export default function Sidebar() {
       <h2 className="text-lg font-semibold !mt-4">Jheremi Villarreal</h2>
       <p className="text-xs text-gray-400">Full Stack Developer</p>
 
-      {/* Bio Section with Toggle */}
-      <div className="mt-4 w-full">
-        <button
-          onClick={() => setIsBioExpanded(!isBioExpanded)}
-          className="w-full flex justify-between items-center bg-gray-700 !px-2 !py-2 !rounded-md text-white !text-xs"
-        >
-          <span>📜 Bio</span>
-          {isBioExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
-        </button>
+     {/* Bio Section with Toggle */}
+        <div className="mt-4 w-full">
+          <button
+            onClick={() => setIsBioExpanded(!isBioExpanded)}
+            className="w-full flex justify-between items-center bg-gray-700 !px-2 !py-2 !rounded-md text-white !text-xs"
+          >
+            <span>📜 Bio</span>
+            {isBioExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+          </button>
 
-        {/* Bio Information */}
-        <div
-          className={`transition-all duration-500  ${isBioExpanded ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0 overflow-hidden pointer-events-none"}`}
-        >
-          <div className="text-left text-xs p-1">
-            <p><span className="font-semibold text-[14px] underline">Location:</span> </p>
-            <p><span>San Antonio, TX, USA</span></p>
-            <br />
-            <p><span className="font-semibold text-[14px] underline">Available for:</span> </p>
-            <p><span>Full-time remote positions, open to relocation for in-office roles, or freelance projects.</span></p>
-            <br />
-            <p><span className="font-semibold text-[14px] underline">Contact:</span> </p>
-            <p><span>jheremi2015@gmail.com</span></p>
+          {/* Bio Information */}
+          <div
+            className={`mt-2 transition-all duration-500 ${isBioExpanded ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0 overflow-hidden pointer-events-none"}`}
+          >
+            <table className="w-full text-xs text-left border-collapse ">
+              <tbody>
+                <tr className="border-b border-gray-600">
+                  <td className="font-semibold text-[12px] px-2 py-2 bg-gray-700 text-white ">Location</td>
+                  <td className="ps-2 py-2">San Antonio, TX, USA</td>
+                </tr>
+                <tr className="border-b border-gray-600">
+                  <td className="font-semibold text-[12px] px-2 py-2 bg-gray-700 text-white ">Available</td>
+                  <td className="ps-2  py-2">For full-time remote positions, relocation for in-office roles, or freelance projects.</td>
+                </tr>
+                <tr>
+                  <td className="font-semibold text-[12px] px-2 py-2 bg-gray-700 text-white ">Contact</td>
+                  <td className="ps-2  py-2">jheremi2015@gmail.com</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
 
       {/* Years of Experience */}
       {/* <div className="mt-6 w-full text-left">
@@ -149,8 +172,20 @@ export default function Sidebar() {
 
       {/* Random Developer Quote */}
       <div className="mt-6 w-full text-left text-xs">
-        <p className="font-semibold">Quote of the Day</p>
-        <p>"{quote}"</p>
+        <table className="w-full text-xs text-left border-collapse ">
+          <tbody>
+            <tr className="border-b border-gray-600 text-center">
+            <td className="font-semibold text-[12px] px-2 py-2 bg-gray-700 text-white ">Quote of the Day</td>
+            </tr>
+            <tr className="border-b border-gray-600">
+              <td className="ps-2 py-2">{loading && <div className="loader"></div>}
+                {error && <p className="text-red-500">{error}</p>}
+                {!loading && !error && quote && (
+                  <p>"{quote.content}" - {quote.author}</p>
+                )}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
 

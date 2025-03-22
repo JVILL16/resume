@@ -3,8 +3,8 @@ import Feedback from "./Feedback";
 
 import SectionDetails from './SectionDetails';
 
-import { animate, motion, useMotionValue, useTransform } from "framer-motion"
-import { useEffect } from "react"
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
 export default function Home() {
 

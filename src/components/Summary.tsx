@@ -4,20 +4,29 @@ import { FaCircle } from "react-icons/fa";
 
 const categories: any = ["Technical", "Get to Know Me", "Other Questions"];
 
-const summaries: any  = {
-  Technical: [
-    { question: "What programming languages do you use?", answer: "As of now, I'm using Javascript, HTML, CSS, C#. On the side I use same " },
-    { question: "What frameworks do you specialize in?", answer: "I specialize in Angular, React, and Laravel." },
+const summaries: any = {
+  "Technical": [
+    { question: "What technologies are you currently learning?", answer: "I'm currently learning TypeScript, AWS services, and advanced Python for automation." },
+    { question: "Do you have experience with cloud computing?", answer: "Yes, I've used AWS and Firebase for hosting and cloud services." },
+    { question: "What’s the most challenging project you've worked on?", answer: "A large-scale web scraping project that involved handling thousands of data points daily." },
+    { question: "What’s your biggest strength as a developer?", answer: "Adapting quickly to new technologies and solving problems efficiently." },
   ],
+  
   "Get to Know Me": [
-    { question: "What's your favorite hobby?", answer: "I enjoy playing Ultimate Frisbee and working on personal projects." },
+    { question: "What's your favorite hobby?", answer: "Short answer, Ultimate Frisbee. I do enjoy other activities whether it is volleyball, coding, basketball, carpentry, golfing, etc. However, Ultimate Frisbee is my favorite." },
     { question: "Where are you from?", answer: "I'm from McAllen, TX. I moved to San Antonio in 2015 for university." },
+    { question: "What inspired you to become a developer?", answer: "I’ve always been curious about how things work. Once I built my first website, I was hooked." },
+    { question: "What do you do outside of coding?", answer: "I enjoy playing Ultimate Frisbee, watching basketball, and working on side projects." },
   ],
+
   "Other Questions": [
-    { question: "Do you do freelance work?", answer: "Yes, I build websites for clients." },
-    { question: "What's your background?", answer: "I have 3-4 years of experience as a Full Stack Developer." },
+    { question: "Do you do freelance work?", answer: "Yes, I usually email or go to small businesses and offer my work." },
+    { question: "What's your approach to problem-solving?", answer: "I break problems into smaller parts, research solutions, and test different approaches." },
+    { question: "Do you mentor other developers?", answer: "Yes! I enjoy helping junior devs by answering questions and reviewing code." },
+    
   ],
 };
+
 const images : any = [
   { id: 1, src: "/selfImage/IMG_3589.jpeg" },
   { id: 2, src: "/selfImage/IMG_4757.jpeg" },
@@ -27,7 +36,7 @@ const images : any = [
   { id: 6, src: "/selfImage/IMG_0587.jpeg" },
 ];
 export default function Summary() {
-  const [activeCategory, setActiveCategory] = useState("Technical");
+  const [activeCategory, setActiveCategory] = useState("Get to Know Me");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeImageId, setActiveImageId] = useState(images[0].id);
@@ -37,7 +46,7 @@ export default function Summary() {
     setIsDragging(true);
   };
 
-  const handleDragEnd = (_: any, info: any) => {
+  const handleDragEnd = (_: any) => {
     setIsDragging(false); // Reset dragging state
   };
 
