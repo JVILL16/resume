@@ -6,6 +6,7 @@ import Skills from './Skills';
 import WorkExperience from './Experience';
 import Projects from './Projects';
 import Summary from './Summary';
+import Education from './Education';
 
 const records: any = [
     { id: "education", title: "Education", icon: <FaGraduationCap size={25} /> },
@@ -26,31 +27,37 @@ const sectionContent: any = {
     },
     education: {
         title: "Academic Background: Education & Learning Journey",
-        content: "My educational background forms the foundation of my technical knowledge and problem-solving abilities. With a strong focus on Computer Science, Software Engineering, and Cybersecurity, I have gained a deep understanding of algorithms, data structures, system design, security principles, and other topics I endured."
+        content:
+            <>
+                With a strong focus on Computer Science, Software Engineering, and Cybersecurity,
+                I have gained a deep understanding of algorithms, data structures, system design,
+                security principles, and other topics I endured attending at the{' '}
+                <span style={{ color: 'orange' }}>University of Texas at San Antonio</span>.
+            </>
     },
     projects: {
         title: "Portfolio: Projects & Case Studies",
         content: "This section includes professional and personal work that showcases my technical expertise, creativity, problem-solving skills, and my ability to develop software applications across different domains. Each project description provides insights into the technologies used, challenges overcome, and the impact of the solution. "
     },
     tools: {
-        title: "Skills: Tools & Tech Stack" ,
+        title: "Skills: Tools & Tech Stack",
         content: "Take a look at my expertise in frontend and backend development, databases, cloud platforms, DevOps tools, and other essential technologies! Additionally, it touches on my continuous learning, staying updated with industry trends, and refining my skills to adapt to new challenges."
     }
 };
 
 export default function SectionDetails() {
-    const [activeSection, setActiveSection] = useState("experience");
+    const [activeSection, setActiveSection] = useState("summary");
 
     const handleDragEnd = (_: any, info: any) => {
         const threshold = 120;
         if (info.offset.x > threshold) {
             setActiveSection((prev) => {
-                const currentIndex = records.findIndex((r:any) => r.id === prev);
+                const currentIndex = records.findIndex((r: any) => r.id === prev);
                 return records[(currentIndex + 1) % records.length].id;
             });
         } else if (info.offset.x < -threshold) {
             setActiveSection((prev) => {
-                const currentIndex = records.findIndex((r:any) => r.id === prev);
+                const currentIndex = records.findIndex((r: any) => r.id === prev);
                 return records[(currentIndex - 1 + records.length) % records.length].id;
             });
         }
@@ -60,9 +67,9 @@ export default function SectionDetails() {
         <div className="w-full flex flex-col items-center">
             {/* Manila Folder Navigation */}
             <div className="relative flex flex-wrap justify-center w-full min-h-[200px]">
-                {records.map((record:any, index:any) => {
+                {records.map((record: any, index: any) => {
                     const isActive = record.id === activeSection;
-                    const position = records.findIndex((r:any) => r.id === activeSection) - index;
+                    const position = records.findIndex((r: any) => r.id === activeSection) - index;
                     const papers = [
                         { id: 1, top: 15, right: 5, width: 40, height: 60, color: 'green' },
                         { id: 2, top: 15, right: 25, width: 40, height: 60, color: 'red' },
@@ -207,6 +214,7 @@ export default function SectionDetails() {
                 {activeSection === 'tools' && <Skills />}
                 {activeSection === 'experience' && <WorkExperience />}
                 {activeSection === 'projects' && <Projects />}
+                {activeSection === 'education' && <Education />}
             </div>
         </div>
     );

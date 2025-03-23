@@ -1,8 +1,10 @@
-import { FaJava, FaPython, FaJs, FaPhp, FaHtml5, FaCss3, FaReact, FaGitAlt, FaDatabase } from "react-icons/fa";
-import { SiMysql, SiMongodb, SiPostgresql, SiSelenium, SiDotnet, SiAngular, SiPostman } from "react-icons/si";
-import { TbLetterC, TbBrandCSharp } from "react-icons/tb"; // C and C# icons
-import { GrServer } from "react-icons/gr"; // Server icon for SQL Server & Azure DevOps
+import { FaJava, FaPython, FaJs, FaPhp, FaHtml5, FaCss3, FaReact, FaNodeJs, FaGitAlt,  FaGavel } from "react-icons/fa";
+import { TbLetterC, TbBrandCSharp } from "react-icons/tb";
+import { SiTypescript, SiAngular, SiDotnet, SiSelenium, SiMongodb, SiMysql, SiPostgresql, SiPostman, SiExpress, SiVuedotjs,  SiDjango, SiSpring,SiRedis, SiNextdotjs } from "react-icons/si";
+import { GrServer } from "react-icons/gr";
+import { MdMoreHoriz } from "react-icons/md";
 import { motion } from "framer-motion";
+
 
 const skillSections = [
   {
@@ -16,6 +18,7 @@ const skillSections = [
       { icon: FaPhp, name: "PHP" },
       { icon: FaHtml5, name: "HTML" },
       { icon: FaCss3, name: "CSS" },
+      { icon: SiTypescript, name: "TypeScript" },
     ],
   },
   {
@@ -23,7 +26,12 @@ const skillSections = [
     skills: [
       { icon: SiAngular, name: "Angular" },
       { icon: FaReact, name: "React" },
+      { icon: SiVuedotjs, name: "Vue.js" },
+      { icon: SiNextdotjs, name: "Next.js" },
       { icon: SiDotnet, name: ".NET" },
+      { icon: SiDjango, name: "Django" },
+      { icon: SiSpring, name: "Spring Boot" },
+      { icon: SiExpress, name: "Express.js" },
       { icon: SiSelenium, name: "Selenium" },
     ],
   },
@@ -33,18 +41,21 @@ const skillSections = [
       { icon: SiMongodb, name: "MongoDB" },
       { icon: SiMysql, name: "MySQL" },
       { icon: SiPostgresql, name: "PostgreSQL" },
-      { icon: GrServer, name: "MS SQL Server" }, // Using a server icon for SQL Server
+      { icon: GrServer, name: "MS SQL Server" },
+      { icon: SiRedis, name: "Redis" },
     ],
   },
   {
     title: "Tools & Applications",
     skills: [
       { icon: SiPostman, name: "Postman" },
-      { icon: GrServer, name: "Azure DevOps" }, // Using the same server icon
-      { icon: FaDatabase, name: "Databases" }, // General database icon
+      { icon: GrServer, name: "Azure DevOps" },
       { icon: FaGitAlt, name: "Git" },
+      { icon: FaNodeJs, name: "Node.js" },
+      { icon: FaGavel, name: "CUBS" }, 
+      { icon: MdMoreHoriz, name: "VBA" },
     ],
-  },
+  }
 ];
 
 export default function Skills() {

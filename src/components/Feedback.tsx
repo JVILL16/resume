@@ -36,7 +36,7 @@ export default function Feedback() {
           style={{ boxShadow: "0 0 5px rgba(255, 255, 255, 0.5)" }}
           initial={{ opacity: 0, y: 30, rotateX: -90 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1 }}
         >
           <button
             onClick={handleClose}

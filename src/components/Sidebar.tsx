@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown, FaDownload, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown, FaDownload, FaLinkedin, FaRecycle } from 'react-icons/fa';
 import '../styles/Sidebar.css'
+import { BiRefresh } from 'react-icons/bi';
 
 interface Quote {
   content: string;
@@ -39,21 +40,21 @@ export default function Sidebar() {
   const [error, setError] = useState<string | null>(null);
 
 
-  useEffect(() => {
-    const fetchQuote = async () => {
-      setLoading(true);  // ✅ Set loading to true before fetching
-      try {
-        const response = await fetch("https://api.quotable.io/random");//https://quoteapi.pythonanywhere.com/
-        if (!response.ok) throw new Error("Failed to fetch quote"); // ✅ Error handling
-        const data: Quote = await response.json();
-        setQuote(data);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);  // ✅ Set loading to false after fetching (success or error)
-      }
-    };
+  const fetchQuote = async () => {
+    setLoading(true);  // ✅ Set loading to true before fetching
+    try {
+      const response = await fetch("https://api.quotable.io/random");//https://quoteapi.pythonanywhere.com/
+      if (!response.ok) throw new Error("Failed to fetch quote"); // ✅ Error handling
+      const data: Quote = await response.json();
+      setQuote(data);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);  // ✅ Set loading to false after fetching (success or error)
+    }
+  };
 
+  useEffect(() => {
     fetchQuote();
   }, []);
 
@@ -175,7 +176,9 @@ export default function Sidebar() {
         <table className="w-full text-xs text-left border-collapse ">
           <tbody>
             <tr className="border-b border-gray-600 text-center">
-            <td className="font-semibold text-[12px] px-2 py-2 bg-gray-700 text-white ">Quote of the Day</td>
+            <td className="font-semibold text-[12px] p-2 bg-gray-700 text-white ">Quote of the Day
+              <button className="float-end !p-1" onClick={fetchQuote} ><BiRefresh/></button>
+            </td>
             </tr>
             <tr className="border-b border-gray-600">
               <td className="ps-2 py-2">{loading && <div className="loader"></div>}
