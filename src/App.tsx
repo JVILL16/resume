@@ -69,9 +69,9 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-900 text-white">
+    <div className="bg-gray-900 text-white">
       <Sidebar />
-      <div className="ml-[300px] flex-1 h-screen overflow-y-auto p-6">
+      <div className="md:ml-[17%] flex-1 h-screen overflow-y-auto overflow-x-hidden md:p-6">
         <Home />
         <Footer />
       </div>

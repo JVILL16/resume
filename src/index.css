@@ -22,19 +22,12 @@
   /* color:rgb(0, 0, 0); */
 }
 
-.sidebar::-webkit-scrollbar {
-  display: none; /* Hide the scrollbar */
-}
 
-.sidebar {
-  -ms-overflow-style: none; /* For Internet Explorer */
-  scrollbar-width: none; /* For Firefox */
-}
 
 @media (max-width: 768px) {
   body {
     margin-left: 0; /* Remove margin for smaller screens */
-    padding: 10px; /* Adjust padding */
+    /* padding: 10px; */
   }
 }
 
@@ -52,7 +45,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #1e185dcf;
+  background-color: #1f2937;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

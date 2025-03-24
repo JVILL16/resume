@@ -64,7 +64,7 @@ export default function SectionDetails() {
     };
 
     return (
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full flex my-20  flex-col items-center">
             {/* Manila Folder Navigation */}
             <div className="relative flex flex-wrap justify-center w-full min-h-[200px]">
                 {records.map((record: any, index: any) => {
