@@ -98,9 +98,21 @@ export default function Sidebar() {
             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
           >
             {isCollapsed ? (
-              <FaChevronRight className="sidebar-toggle-icon" style={{ fontSize: "24px", color: "#ff6347" }} />
+              <FaChevronRight
+                className={`sidebar-toggle-icon ${isCollapsed ? 'glow' : ''}`}
+                style={{
+                  fontSize: '24px',
+                  color: '#ff6347',
+                }}
+              />
             ) : (
-              <FaChevronLeft className="sidebar-toggle-icon" style={{ fontSize: "24px", color: "#ff6347" }} />
+              <FaChevronLeft
+                className={`sidebar-toggle-icon ${!isCollapsed ? 'glow' : ''}`}
+                style={{
+                  fontSize: '24px',
+                  color: '#ff6347',
+                }}
+              />
             )}
           </div>
         )}

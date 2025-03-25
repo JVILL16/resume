@@ -1,24 +1,4 @@
-.loader {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #fbbf24; /* Yellow */
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin: auto;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  .sidebar::-webkit-scrollbar {
-    display: none; /* Hide the scrollbar */
-  }
- 
-  
- 
-  /* Default Sidebar Styles */
+/* Default Sidebar Styles */
 .sidebar {
   position: fixed;
   z-index: 100;
@@ -30,39 +10,36 @@
   transition: width 0.3s ease;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
-  /* flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 1.5rem;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  */
 }
 
+/* When sidebar is collapsed (for mobile) */
 .sidebar.collapsed {
-  width: 15px; /* Adjust for skinny sidebar */
+  width: 15px; /* Collapsed width for mobile */
 }
 
+/* When sidebar is expanded */
 .sidebar.expanded {
   width: 250px; /* Adjust for expanded sidebar */
 }
 
+/* Sidebar Toggle Button */
 .sidebar-toggle {
-  position: relative;
+  position: absolute; /* Position relative to the sidebar */
   top: 50%;
-  left: 0;
-  vertical-align: middle;
-  width: 10px; /* Skinny toggle button */
+  right: 3px; /* Position outside the sidebar */
+  transform: translateY(-50%);
   background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  width: 10px;
+  height: 10px;
+  z-index: 101; /* Ensure toggle button stays above the content */
+  visibility: visible; /* Ensure visibility */
 }
 
-.sidebar-toggle-icon {
-  color: white;
-  font-size: 20px;
-}
-
+/* Sidebar Content */
 .sidebar-content {
   display: flex;
   flex-direction: column;
@@ -71,38 +48,80 @@
   transition: opacity 0.3s ease;
 }
 
+
+
+/* Sidebar Toggle Icon Glow Animation */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #ff6347, 0 0 10px #ff6347, 0 0 15px #ff6347;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 10px #ff6347, 0 0 20px #ff6347, 0 0 30px #ff6347;
+    transform: scale(1.1);
+  }
+  100% {
+    text-shadow: 0 0 5px #ff6347, 0 0 10px #ff6347, 0 0 15px #ff6347;
+    transform: scale(1);
+  }
+}
+
+/* Default Sidebar Toggle Icon */
+.sidebar-toggle-icon {
+  font-size: 24px;
+  color: #ff6347;
+  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for color change and scaling */
+}
+
+/* Add glow effect when collapsed */
+.sidebar-toggle-icon.glow {
+  animation: glow 1.5s ease-in-out infinite;
+}
+
+/* On hover, increase the glow effect */
+.sidebar-toggle-icon:hover {
+  animation: glow 1.5s ease-in-out infinite;
+}
+
+
+
+
 /* Media Queries for Mobile */
 @media (max-width: 768px) {
+  /* Initially collapsed for mobile */
   .sidebar {
-    width: 10px; /* Collapsed width for mobile */
+    width: 15px; /* Collapsed width for mobile */
   }
 
+  /* Hide content when collapsed */
   .sidebar-content {
-    display: none; /* Hide content when collapsed */
+    display: none;
   }
 
+  /* Show content when expanded */
   .sidebar.expanded .sidebar-content {
-    display: block; /* Show content when expanded */
+    display: block;
   }
 
+  /* Ensure toggle button is visible even when sidebar is collapsed */
   .sidebar.collapsed .sidebar-toggle {
-    display: flex; /* Show toggle button in collapsed state */
+    display: flex; /* Toggle button is visible when collapsed */
+  }
+
+  /* Adjust toggle button positioning when sidebar expands */
+  .sidebar.expanded .sidebar-toggle {
+    right: 10px; /* Adjust positioning when sidebar expands */
   }
 }
 
 /* For larger screens */
 @media (min-width: 769px) {
   .sidebar {
-      /* Full width for larger screens */
-      width: 17%;
-      /* Tailwind's md:w-[17%] */
-      border-radius: 10px;
-      /* Tailwind's md:rounded-xl */
-      margin: 1.5rem;
-      /* Tailwind's md:m-6 */
-      height: 95%;
-  
-    }
+    width: 17%; /* Full width for larger screens */
+    border-radius: 10px;
+    margin: 1.5rem;
+    height: 95%;
+  }
 
   .sidebar-toggle {
     display: none; /* Hide toggle button on larger screens */

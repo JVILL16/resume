@@ -1,5 +1,5 @@
-import '../styles/Home.css';
-import { useState, useEffect } from "react";
+import '../styles/SectionDetails.css';
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaUser, FaBriefcase, FaProjectDiagram, FaGraduationCap, FaFolder, FaTools } from "react-icons/fa";
 import Skills from './Skills';
@@ -8,7 +8,7 @@ import Projects from './Projects';
 import Summary from './Summary';
 import Education from './Education';
 
-const records: any = [
+const records = [
     { id: "education", title: "Education", icon: <FaGraduationCap size={25} /> },
     { id: "projects", title: "Projects", icon: <FaProjectDiagram size={25} /> },
     { id: "experience", title: "Experience", icon: <FaBriefcase size={25} /> },
@@ -52,24 +52,24 @@ export default function SectionDetails() {
         const threshold = 120;
         if (info.offset.x > threshold) {
             setActiveSection((prev) => {
-                const currentIndex = records.findIndex((r: any) => r.id === prev);
+                const currentIndex = records.findIndex((r) => r.id === prev);
                 return records[(currentIndex + 1) % records.length].id;
             });
         } else if (info.offset.x < -threshold) {
             setActiveSection((prev) => {
-                const currentIndex = records.findIndex((r: any) => r.id === prev);
+                const currentIndex = records.findIndex((r) => r.id === prev);
                 return records[(currentIndex - 1 + records.length) % records.length].id;
             });
         }
     };
 
     return (
-        <div className="w-full flex my-20  flex-col items-center">
-            {/* Manila Folder Navigation */}
-            <div className="relative flex flex-wrap justify-center w-full min-h-[200px]">
-                {records.map((record: any, index: any) => {
+        <div className="section-container">
+            {/* Folder Navigation */}
+            <div className="folder-navigation">
+                {records.map((record, index) => {
                     const isActive = record.id === activeSection;
-                    const position = records.findIndex((r: any) => r.id === activeSection) - index;
+                    const position = records.findIndex((r) => r.id === activeSection) - index;
                     const papers = [
                         { id: 1, top: 15, right: 5, width: 40, height: 60, color: 'green' },
                         { id: 2, top: 15, right: 25, width: 40, height: 60, color: 'red' },
@@ -78,7 +78,7 @@ export default function SectionDetails() {
                     return (
                         <motion.div
                             key={record.id}
-                            className="absolute flex flex-col items-center cursor-grab"
+                            className="folder-item"
                             style={{ zIndex: isActive ? 10 : 5 - Math.abs(position) }}
                             animate={{
                                 x: position * (window.innerWidth < 768 ? 100 : 200),
@@ -111,77 +111,60 @@ export default function SectionDetails() {
                                     transition={{ type: "spring", stiffness: 60, damping: 12 }}
                                 />
                             ))}
-
                             {/* Folder Icon */}
-                            <div className="icon-container relative z-10">
+                            <div className="folder-icon">
                                 <FaFolder size={120} className="text-yellow-500 text-8xl drop-shadow-md" />
                                 <div className="notification-dot text-gray-800">{record.icon}</div>
                             </div>
-
                             {/* Folder Label */}
-                            <h2 className="text-md font-bold mt-2">{record.title}</h2>
+                            <h2 className="folder-label">{record.title}</h2>
                         </motion.div>
                     );
                 })}
             </div>
-            {/* Title Card Section Directly Under Folders */}
+
+            {/* Title Card */}
             <motion.div
                 key={activeSection}
-                className="mt-10 flex flex-col md:flex-row w-[80vw] max-w-4xl min-h-[30vh] bg-gray-900 text-white rounded-lg shadow-2xl overflow-hidden"
+                className="title-card"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ type: "spring", stiffness: 60, damping: 12 }}
             >
-                {/* Left Side - Image/Icon */}
+                {/* Left Side - Icon */}
                 <motion.div
-                    className="w-full md:w-1/3 flex flex-col items-center justify-center bg-yellow-500 p-3 relative"
+                    className="title-card-left"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     {(() => {
-                        let Icon;
-                        switch (activeSection) {
-                            case 'tools':
-                                Icon = FaTools;
-                                break;
-                            case 'summary':
-                                Icon = FaUser;
-                                break;
-                            case 'experience':
-                                Icon = FaBriefcase;
-                                break;
-                            case 'projects':
-                                Icon = FaProjectDiagram;
-                                break;
-                            case 'education':
-                                Icon = FaGraduationCap;
-                                break;
-                            default:
-                                return null;
-                        }
+                        const icons:any = {
+                            tools: FaTools,
+                            summary: FaUser,
+                            experience: FaBriefcase,
+                            projects: FaProjectDiagram,
+                            education: FaGraduationCap
+                        };
+                        const Icon = icons[activeSection];
                         return (
                             <>
-                                {/* Floating Icon */}
                                 <motion.div
-                                    animate={{ y: [0, -12, 0] }} // Floating up & down
+                                    animate={{ y: [0, -12, 0] }}
                                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                                    className="relative z-10"
+                                    className="icon-animation"
                                 >
                                     <Icon size={75} className="text-gray-800 drop-shadow-md" />
                                 </motion.div>
-
-                                {/* Floating Shadow (In Sync) */}
                                 <motion.div
-                                    className="absolute bottom-2 w-24 h-4 bg-black opacity-25"
-                                    style={{ borderRadius: "50% 40%" }} // Slightly squashed oval shape
-                                    animate={{
+                                    className="shadow-animation"
+                                    animate={{ 
                                         scaleX: [1, 1.1, 1], // Expands horizontally as icon moves down
                                         scaleY: [1, 0.8, 1], // Compresses vertically as icon moves up
                                         opacity: [0.25, 0.2, 0.25], // Slight fade effect
                                         y: [5, 0, 5], // Moves down when icon moves up
-                                    }}
+                                     }}
                                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                                 />
                             </>
@@ -190,26 +173,14 @@ export default function SectionDetails() {
                 </motion.div>
 
                 {/* Right Side - Text Content */}
-                <motion.div
-                    className="w-full md:w-2/3 p-6"
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                    <h2 className="text-xl font-bold mb-4">
-                        {sectionContent[activeSection]?.title}
-                    </h2>
-                    <p className="text-md leading-relaxed">
-                        {sectionContent[activeSection]?.content}
-                    </p>
+                <motion.div className="title-card-right">
+                    <h2 className="text-xl font-bold mb-4">{sectionContent[activeSection]?.title}</h2>
+                    <p className="text-md leading-relaxed">{sectionContent[activeSection]?.content}</p>
                 </motion.div>
             </motion.div>
 
-
-
-
-            {/* 🟢 Keeps the components (Summary, Skills, Experience, Projects) below the title card */}
-            <div className="mt-10 w-screen max-w-full flex justify-center mb-5 px-4">
+            {/* Content Section */}
+            <div className="content-container">
                 {activeSection === 'summary' && <Summary />}
                 {activeSection === 'tools' && <Skills />}
                 {activeSection === 'experience' && <WorkExperience />}

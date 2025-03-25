@@ -1,0 +1,98 @@
+.section-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.folder-navigation {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    min-height: 200px;
+}
+
+.folder-item {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: grab;
+}
+
+.folder-icon {
+    position: relative;
+    z-index: 10;
+}
+
+.folder-label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.title-card {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    max-width: 60rem;
+    min-height: 30vh;
+    background-color: #1f2937;
+    color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+
+
+.title-card-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #facc15;
+    padding: 3rem;
+    flex: 1;
+    min-height: 100%;
+    position: relative;
+}
+
+.title-card-right {
+    flex: 2;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.icon-animation {
+    position: relative;
+    z-index: 10;
+}
+
+.shadow-animation {
+    position: absolute;
+    bottom: 0.5rem;
+    width: 6rem;
+    height: 0.75rem;
+    background-color: black;
+    opacity: 0.25;
+    border-radius: 50% 40%;
+}
+
+
+@media (max-width: 768px) {
+  
+}
+
+@media (min-width: 769px) {
+    .title-card {
+        flex-direction: row;
+    }
+}
