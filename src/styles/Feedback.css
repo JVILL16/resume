@@ -1,0 +1,140 @@
+.feedback-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+
+.feedback-title {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 3.75rem;
+    letter-spacing: 0.05em;
+  }
+
+.mail-icon{
+  font-size:3rem;
+}
+
+.fb-box{
+  padding:1.5rem;
+  width:600px;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #9ca3af; /* gray-400 */
+  font-size: 1.25rem; /* text-xl */
+}
+
+.close-btn:hover {
+  color: white;
+}
+
+/* Title and Subheading */
+.heading {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.subheading {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: bold;
+  text-align: left;
+  margin: 1rem; /* m-4 */
+}
+
+/* Form elements */
+.input-field, .select-field, .textarea-field {
+  width: 100%;
+  padding: 0.75rem; /* p-3 */
+  background-color: #4b5563; /* bg-gray-700 */
+  border-radius: 0.5rem; /* rounded-lg */
+}
+
+.textarea-field {
+  resize: none;
+  height: 8rem; /* h-32 */
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  background-color: #3b82f6; /* bg-blue-500 */
+  color: white;
+  padding: 0.75rem; /* py-3 */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-weight: 600; /* font-semibold */
+}
+
+.submit-btn:hover {
+  background-color: #2563eb; /* bg-blue-600 */
+}
+
+
+
+  @media (max-width: 768px) {
+    .feedback-title {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .mail-icon{
+      font-size:1rem;
+    }
+    .mail-icon svg{
+      width: 80px;
+        height: 80px;
+    }
+    .fb-box{
+      padding:1rem;
+      width:300px;
+    }
+    .heading {
+      font-size: 1rem; 
+      margin-bottom: 1.5rem; 
+    }
+    
+    .subheading {
+      font-size: 0.6rem; 
+      margin: 1rem; 
+    }
+    .close-btn {
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.7rem; 
+    }
+
+
+    .input-field, .select-field, .textarea-field {
+      padding: 0.3rem;
+    }
+    .input-field::placeholder, .select-field, .select-field option, .select-field option:first-child, .textarea-field::placeholder {
+      font-size: 0.7rem;
+      text-align: left;
+    }
+  
+    .textarea-field {
+      height: 4rem; 
+    }
+    
+    .submit-btn {
+      padding: 0.35rem; 
+    }
+  }
+  
+  /* For larger screens */
+  @media (min-width: 769px) {
+    
+    
+  }

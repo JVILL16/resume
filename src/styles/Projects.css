@@ -1,0 +1,81 @@
+.projects-container {
+  padding: 4rem 3rem;
+  color: #d1d5db;
+  border-radius: 0.75rem;
+}
+
+.projects-title {
+  font-size: 2.25rem;
+  text-align: center;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 3.75rem;
+  letter-spacing: 0.05em;
+}
+
+
+.projects-tabs {
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+}
+
+.projects-tabs button {
+  padding-inline: 1.5rem;
+  padding-block: 0.5rem;
+  font-size: 1.125rem;
+}
+
+.projects-card {
+  width: 24rem;
+  padding: 1rem;
+}
+
+
+.projects-card h3 {
+  font-size: 1.25rem;
+}
+
+
+.projects-techstack{
+padding-block: 0.5rem;
+padding-inline: 1rem;
+font-size:0.875rem;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+
+  .projects-title {
+    font-size: 1.125rem;
+    margin-bottom: 1.875rem;
+  }
+
+  .projects-card {
+    width: 18rem;
+  }
+
+  .projects-tabs button {
+    padding-inline: 0.75rem;
+    padding-block: 0.25rem;
+    font-size: 0.56rem;
+  }
+  .projects-card h3 {
+    font-size: 0.7rem;
+}
+.projects-card p {
+  font-size: 0.6rem;
+}
+.projects-techstack{
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+  font-size:0.6rem;
+  }
+}
+
+/* For larger screens */
+@media (min-width: 769px) {
+
+}

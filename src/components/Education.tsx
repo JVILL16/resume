@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import '../styles/Education.css';
 
 const courses = [
   "Computer Science Fundamentals",
@@ -11,8 +12,8 @@ const courses = [
 
 const Education = () => {
   return (
-    <div className="py-14 px-8 bg-gray-900 text-white rounded-xl">
-      <h1 className="text-4xl text-center font-extrabold text-white mb-10 tracking-wide">
+    <div className="education-container">
+      <h1 className="education-title">
         Here Is What I Learned
       </h1>
 
@@ -22,7 +23,7 @@ const Education = () => {
           {courses.map((course, index) => (
             <motion.div
               key={index}
-              className="bg-gray-800 p-6 rounded-lg w-80 shadow-lg border border-transparent 
+              className="education-card bg-gray-800 rounded-lg shadow-lg border border-transparent 
                          hover:border-blue-400 transition-all duration-300"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +34,7 @@ const Education = () => {
                 boxShadow: "0px 0px 20px rgba(59, 130, 246, 0.6)",
               }}
             >
-              <h3 className="text-lg font-semibold">{course}</h3>
+              <h3 className="font-semibold">{course}</h3>
             </motion.div>
           ))}
         </div>

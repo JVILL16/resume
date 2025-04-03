@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import '../styles/Experience.css';
 
 const workExperience : any = {
   Professional: [
@@ -79,17 +80,17 @@ export default function WorkExperience() {
   const [activeTab, setActiveTab] = useState("Professional");
 
   return (
-    <div className="py-14 px-8 bg-gray-900 text-white rounded-xl">
-      <h1 className="text-4xl text-center font-extrabold text-white mb-15 tracking-wide">
+    <div className="experience-container">
+      <h1 className="experience-title">
         Roles That Shaped Me
       </h1>
       {/* Tabs for Professional / Other Experiences */}
-      <div className="flex justify-center gap-6 mb-8">
+      <div className="flex justify-center experience-tabs">
         {Object.keys(workExperience).map((category) => (
           <button
             key={category}
             onClick={() => setActiveTab(category)}
-            className={`px-6 py-2 rounded-md text-lg font-semibold transition-all ${
+            className={`rounded-md font-semibold transition-all ${
               activeTab === category
                 ? "bg-blue-500 shadow-lg shadow-blue-500/50"
                 : "bg-gray-700 hover:bg-gray-600"
@@ -104,8 +105,8 @@ export default function WorkExperience() {
           workExperience[activeTab].map((job: any, index: any) => (
             <motion.div
               key={index}
-              className="relative bg-gray-800 p-4 rounded-lg w-96 shadow-lg border border-transparent cursor-pointer
-                      hover:border-blue-400 transition-all duration-300"
+              className="relative bg-gray-800  rounded-lg shadow-lg border border-transparent cursor-pointer
+                      hover:border-blue-400 transition-all duration-300 experience-card"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}

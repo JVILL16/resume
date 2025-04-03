@@ -68,12 +68,13 @@ export default function SectionDetails() {
             {/* Folder Navigation */}
             <div className="folder-navigation">
                 {records.map((record, index) => {
+                    const isMobile = window.innerWidth < 768;
                     const isActive = record.id === activeSection;
                     const position = records.findIndex((r) => r.id === activeSection) - index;
                     const papers = [
-                        { id: 1, top: 15, right: 5, width: 40, height: 60, color: 'green' },
-                        { id: 2, top: 15, right: 25, width: 40, height: 60, color: 'red' },
-                        { id: 3, top: 15, right: 45, width: 40, height: 60, color: 'blue' }
+                        { id: 1, top: isMobile ? 7.5 : 15, right: isMobile ? 0 : 5, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60, color: 'green' },
+                        { id: 2, top: isMobile ? 7.5 : 15, right: isMobile ? 15 : 25, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60, color: 'red' },
+                        { id: 3, top: isMobile ? 7.5 : 15, right: isMobile ? 30 : 45, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60, color: 'blue' }
                     ];
                     return (
                         <motion.div

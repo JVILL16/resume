@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence  } from "framer-motion";
 import { FaCircle } from "react-icons/fa";
+import '../styles/Summary.css'
 
 const categories: any = ["Technical", "Get to Know Me", "Other Questions"];
 
@@ -61,15 +62,15 @@ export default function Summary() {
   }, [activeIndex]);
 
   return (
-    <div className="py-14 px-8 bg-gray-900 text-gray-300 rounded-xl">
+    <div className="summary-container">
 
-      <h1 className="text-4xl text-center font-extrabold text-white mb-15 tracking-wide">Common Questions, Clear Answers</h1>
+      <h1 className="summary-title">Common Questions, Clear Answers</h1>
       {/* Animated Category Buttons */}
       <div className="flex justify-center space-x-4 mb-8">
         {categories.map((category:any) => (
           <motion.button
             key={category}
-            className="relative px-6 py-2 text-lg font-semibold rounded-lg transition-all duration-300 overflow-hidden"
+            className="category-button"
             onClick={() => setActiveCategory(category)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -85,13 +86,13 @@ export default function Summary() {
             {/* Active Indicator (Underline & Glow Effect) */}
             {activeCategory === category && (
               <motion.div
-                className="absolute inset-0 bg-blue-500 opacity-20 rounded-lg"
+                className="category-button-background"
                 layoutId="activeBackground"
                 transition={{ duration: 0.3 }}
               />
             )}
             <motion.div
-              className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-400"
+              className="category-button-underline"
               layoutId="activeUnderline"
               transition={{ duration: 0.3 }}
             />
@@ -103,7 +104,7 @@ export default function Summary() {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeCategory}
-          className="relative border-l-2 border-gray-700 pl-8 w-full max-w-4xl mx-auto"
+          className="questions-list"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -112,7 +113,7 @@ export default function Summary() {
           {summaries[activeCategory].map((item:any, index:any) => (
             <motion.div
               key={index}
-              className="relative mb-10 cursor-pointer"
+              className="question-item"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2, ease: "easeOut" }}
@@ -121,7 +122,7 @@ export default function Summary() {
             >
               {/* Animated Dot */}
               <motion.div
-                className={`absolute -left-[22px] top-3 w-4 h-4 rounded-full flex items-center justify-center shadow-lg transition-all duration-300
+                className={`question-dot transition-all duration-300
                 ${activeIndex === index ? "bg-blue-400 border-blue-500 shadow-blue-500" : "bg-gray-800 border-gray-500"}`}
                 animate={{
                   scale: activeIndex === index ? 1.2 : 1,
@@ -151,14 +152,14 @@ export default function Summary() {
                 whileHover={{ scale: 1.02 }}
               >
                 <motion.h3
-                  className="text-lg font-semibold text-gray-100"
+                  className="question-text"
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
                   {item.question}
                 </motion.h3>
                 <motion.div
-                  className="text-gray-400 mt-2 overflow-hidden"
+                  className="answer-text"
                   initial={{ height: 0, opacity: 0 }}
                   animate={activeIndex === index ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
@@ -171,10 +172,10 @@ export default function Summary() {
         </motion.div>
       </AnimatePresence>
 
-      <h1 className="text-4xl text-center font-extrabold text-white my-15 tracking-wide">Still Shots, Always Moving</h1>
-      <div className="relative w-full flex justify-center overflow-hidden mt-10">
+      <h1 className="summary-title">Still Shots, Always Moving</h1>
+      <div className="image-gallery">
       <motion.div
-        className="flex space-x-6 cursor-grab active:cursor-grabbing w-full"
+        className="image-scroll-container"
         drag="x"
         dragConstraints={{ left: -500, right: 500 }}
         dragElastic={0.2}
@@ -184,10 +185,10 @@ export default function Summary() {
         {images.map((image:any) => (
           <motion.div
             key={image.id}
-            className={`relative w-[320px] h-[420px] flex-shrink-0 rounded-xl overflow-hidden transition-all duration-300 ${
+            className={`image-item ${
               activeImageId === image.id
-                ? "scale-110 shadow-xl"  // Zoom in effect on active image
-                : "scale-95 opacity-70"
+                ? "image-item-active"  // Zoom in effect on active image
+                : "image-item-inactive"
             }`}
             onClick={() => {
               // Set active image only if not dragging
@@ -202,7 +203,7 @@ export default function Summary() {
             <motion.img
               src={image.src}
               alt={`Slide ${image.id}`}
-              className="w-full h-full object-cover"
+              className="image"
               whileHover={{ scale: 1.02 }}
             />
           </motion.div>

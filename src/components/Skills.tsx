@@ -4,7 +4,7 @@ import { SiTypescript, SiAngular, SiDotnet, SiSelenium, SiMongodb, SiMysql, SiPo
 import { GrServer } from "react-icons/gr";
 import { MdMoreHoriz } from "react-icons/md";
 import { motion } from "framer-motion";
-
+import '../styles/Skills.css';
 
 const skillSections = [
   {
@@ -60,13 +60,13 @@ const skillSections = [
 
 export default function Skills() {
   return (
-    <div className="py-14 px-8 bg-gray-900 text-white rounded-xl ">
-  <h1 className="text-4xl text-center font-extrabold text-white mb-15 tracking-wide">The Tech I Work With</h1>
-  <div className="flex flex-wrap justify-center gap-6 text-center">
+    <div className="skills-container">
+  <h1 className="skills-title">The Tech I Work With</h1>
+  <div className="flex flex-wrap justify-center text-center skills-section">
     {skillSections.map((section, idx) => (
       <motion.div
         key={idx}
-        className="relative bg-gray-800 p-4 rounded-lg w-64 shadow-lg border border-transparent cursor-pointer
+        className="relative bg-gray-800 rounded-lg shadow-lg border border-transparent cursor-pointer skills-card
                    hover:border-blue-400 transition-all duration-300"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -88,15 +88,15 @@ export default function Skills() {
           }}
         ></motion.div>
 
-        <h3 className="text-lg font-semibold text-center mb-3">{section.title}</h3>
+        <h3 className="skills-grid-title font-semibold text-center mb-3">{section.title}</h3>
         <div className="grid grid-cols-3 gap-3">
           {section.skills.map((skill, index) => (
             <div
               key={index}
-              className="flex flex-col items-center p-2 transition transform hover:-translate-y-1"
+              className="flex flex-col items-center skills-container-icon transition transform hover:-translate-y-1"
             >
-              <skill.icon className="text-3xl text-blue-500 transition-transform duration-300" />
-              <p className="mt-1 text-xs font-semibold opacity-80">{skill.name}</p>
+              <skill.icon className="skills-icon text-blue-500 transition-transform duration-300" />
+              <p className="mt-1 skill-name font-semibold opacity-80">{skill.name}</p>
             </div>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import '../styles/Projects.css'
 
 const projects: any  = {
   Professional: [
@@ -91,16 +92,16 @@ const Projects = () => {
   const [activeTab, setActiveTab] = useState("Professional");
 
   return (
-    <div className="py-14 px-8 bg-gray-900 text-white rounded-xl">
-      <h1 className="text-4xl text-center font-extrabold text-white mb-15 tracking-wide">Where Vision Meets Execution</h1>
+    <div className="projects-container">
+      <h1 className="projects-title">Where Vision Meets Execution</h1>
 
       {/* Tabs for Professional / Independent Projects */}
-      <div className="flex justify-center gap-6 mb-8">
+      <div className="flex justify-center projects-tabs">
         {Object.keys(projects).map((category) => (
           <button
             key={category}
             onClick={() => setActiveTab(category)}
-            className={`px-6 py-2 rounded-md text-lg font-semibold transition-all ${
+            className={`rounded-md font-semibold transition-all ${
               activeTab === category
                 ? "bg-blue-500 shadow-lg shadow-blue-500/50"
                 : "bg-gray-700 hover:bg-gray-600"
@@ -116,7 +117,7 @@ const Projects = () => {
         {projects[activeTab].map((project: any, index: any) => (
           <motion.div
             key={index}
-            className="relative bg-gray-800 p-6 rounded-lg w-96 shadow-lg border border-transparent cursor-pointer
+            className="projects-card relative bg-gray-800 rounded-lg shadow-lg border border-transparent cursor-pointer
                       hover:border-blue-400 transition-all duration-300"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -154,7 +155,7 @@ const Projects = () => {
           {techStack.map((tech, index) => (
             <motion.span
               key={index}
-              className="px-4 py-2 bg-gray-700 rounded-md text-sm font-semibold transition-all
+              className="projects-techstack bg-gray-700 rounded-md font-semibold transition-all
                           hover:bg-blue-500 hover:shadow-md"
               whileHover={{ scale: 1.1 }}
             >

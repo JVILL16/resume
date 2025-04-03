@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown, FaDownload, FaLinkedin, FaRecycle, FaChevronLeft, FaChevronRight, FaAngleRight } from 'react-icons/fa';
-import '../styles/Sidebar.css'
+import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown, FaDownload, FaLinkedin, FaRecycle, FaChevronLeft, FaChevronRight, FaAngleRight, FaQuestionCircle } from 'react-icons/fa';
 import { BiRefresh } from 'react-icons/bi';
-import { PiDotsThreeOutlineVerticalLight } from 'react-icons/pi';
+import '../styles/Sidebar.css'
+import ChessBox from './ChessBox';
 
 interface Quote {
   content: string;
@@ -42,8 +42,6 @@ export default function Sidebar() {
 
   const [loading, setLoading] = useState<boolean>(true);  // ✅ Added loading state
   const [error, setError] = useState<string | null>(null);
-
-
 
   const fetchQuote = async () => {
     setLoading(true);  // ✅ Set loading to true before fetching
@@ -216,34 +214,7 @@ export default function Sidebar() {
               </div>
             </div>
 
-            {/* Code Snippet of the Day */}
-            {/* <div className="mt-6 w-full text-left">
-        <p className="font-semibold">Code Snippet of the Day</p>
-        <code className="block bg-gray-700 p-2 rounded text-xs !font-mono">
-          {"const greet = () => console.log('Hello, World!');"}
-        </code>
-      </div> */}
-
-            {/* Random Developer Quote */}
-            <div className="mt-6 w-full text-left text-xs">
-              <table className="w-full text-xs text-left border-collapse ">
-                <tbody>
-                  <tr className="border-b border-gray-600 text-center">
-                    <td className="font-semibold text-[12px] p-2 bg-gray-700 text-white ">Quote of the Day
-                      <button className="float-end !p-1" onClick={fetchQuote} ><BiRefresh /></button>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-600">
-                    <td className="ps-2 py-2">{loading && <div className="loader"></div>}
-                      {error && <p className="text-red-500">{error}</p>}
-                      {!loading && !error && quote && (
-                        <p>"{quote.content}" - {quote.author}</p>
-                      )}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
+            
 
             {/* Download CV Button */}
             <div className="mt-6 w-full flex items-center justify-center">
@@ -275,6 +246,38 @@ export default function Sidebar() {
           <span className="ml-2">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
       </div> */}
+
+
+      {/* Code Snippet of the Day */}
+            {/* <div className="mt-6 w-full text-left">
+        <p className="font-semibold">Code Snippet of the Day</p>
+        <code className="block bg-gray-700 p-2 rounded text-xs !font-mono">
+          {"const greet = () => console.log('Hello, World!');"}
+        </code>
+      </div> */}
+
+            {/* Random Developer Quote */}
+            <div className="mt-6 w-full text-center">
+              <table className="w-full border-collapse">
+                <tbody>
+                  <tr className="border-b border-gray-600 rounded-t-xl">
+                    <td className="font-semibold p-2 rounded-t-lg bg-gray-700 text-white flex justify-center items-center w-full">
+                      <span className="text-[12px] flex-grow text-center">Quote of the Day</span>
+                      <button title="Refresh" className="ml-2 !p-1 float-right !text-xs" onClick={fetchQuote} ><BiRefresh /></button>
+                    </td>
+                  </tr>
+                  <tr className="text-xs border-b border-gray-600">
+                    <td className="ps-2 py-2">{loading && <div className="loader"></div>}
+                      {error && <p className="text-red-500">{error}</p>}
+                      {!loading && !error && quote && (
+                        <p>"{quote.content}" - {quote.author}</p>
+                      )}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <ChessBox/>
           </div>
         )}
 

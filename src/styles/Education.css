@@ -1,0 +1,52 @@
+.education-container {
+    padding: 4rem 3rem;
+    color: #d1d5db;
+    border-radius: 0.75rem;
+  }
+  
+  .education-title {
+    font-size: 2.25rem;
+    text-align: center;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 3.75rem;
+    letter-spacing: 0.05em;
+  }
+  
+  
+  .education-card {
+    width: 24rem;
+    padding: 1rem;
+  }
+  
+  
+  .education-card h3 {
+    font-size: 1.125rem;
+  }
+  
+  
+  
+  
+  
+  @media (max-width: 768px) {
+  
+    .education-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.875rem;
+    }
+  
+    .education-card {
+      width: 15rem;
+      padding: 0.5rem;
+    }
+  
+    .education-card h3 {
+      font-size: 0.7rem;
+  }
+  
+  }
+  
+  /* For larger screens */
+  @media (min-width: 769px) {
+  
+  }

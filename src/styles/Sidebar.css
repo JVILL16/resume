@@ -1,5 +1,11 @@
+.sidebar::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
+}
+
 /* Default Sidebar Styles */
 .sidebar {
+  -ms-overflow-style: none; /* For Internet Explorer */
+  scrollbar-width: none; /* For Firefox */
   position: fixed;
   z-index: 100;
   top: 0;
@@ -48,7 +54,30 @@
   transition: opacity 0.3s ease;
 }
 
+.sidebar-chess{
+  
+}
+.sidebar-chess h2{
+  font-size:1.125rem;
+}
+/* .sidebar-chess span{
+  font-size:0.6rem;
+} */
+.sidebar-chess p{
+  font-size:0.7rem;
+}
 
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
 
 /* Sidebar Toggle Icon Glow Animation */
 @keyframes glow {
