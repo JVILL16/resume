@@ -3,7 +3,7 @@
 const Footer = () => {
   return (
     <footer className=" text-white p-1 mt-8 text-center">
-      <p>© {new Date().getFullYear()} SagePaths | Resume Career</p>
+      <p className="text-xs">© {new Date().getFullYear()} SagePaths | Resume Career</p>
       {/* <div>
         <a href="mailto:jheremi2015@gmail.com" className="hover:text-blue-400">Email</a> | 
         <a href="https://www.linkedin.com/in/jheremi-villarreal-b05850138" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400"> LinkedIn</a> | 

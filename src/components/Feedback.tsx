@@ -6,8 +6,25 @@ import '../styles/Feedback.css';
 export default function Feedback() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [loading, setLoading] = useState<boolean>(true); 
+  const [error, setError] = useState<string | null>(null);
+
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
+
+
+  const submitFeedback = async () => {
+    setLoading(true);  // ✅ Set loading to true before fetching
+    try {
+      const response = await fetch("https://sagepaths.dev.api.sagejherm.co/api/feedback/fb_create");//https://quoteapi.pythonanywhere.com/
+      if (!response.ok) throw new Error("Failed to create feedback"); 
+     
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="feedback-container">

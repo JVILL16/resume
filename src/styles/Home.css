@@ -96,12 +96,19 @@
 /* Media Queries for Mobile */
 @media (max-width: 768px) {
 
+  .home-content {
+    width: 76.67%; 
+    padding-left: 10px;
+  }
     .home-section {
         padding: 20px;
         height: 200px;
     }
     .home-heading {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
+      }
+      .home-paragraph {
+        font-size: 0.6rem;
       }
       .home-button {
         font-size: 0.6rem; /* Tailwind's text-sm */

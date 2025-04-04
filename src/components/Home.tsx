@@ -31,7 +31,8 @@ export default function Home() {
           {/* Content */}
           <div className="home-content">
             <h1 className="home-heading">Discover My Amazing Work!</h1>
-            <p className="home-paragraph">Take a deep dive into my website and explore some of my projects I worked on and experiences I have endure.</p>
+            <p className="home-paragraph">Take a deep dive into my website, explore some 
+              projects I worked on, and experiences I have endure.</p>
             <button className="home-button">
               Explore Now
             </button>

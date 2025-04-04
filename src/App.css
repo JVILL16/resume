@@ -9,7 +9,7 @@
 .title {
   font-family: Daily-Q;
   color: #fff;
-  font-size: 50px;
+  
   margin-left:15px;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   vertical-align: middle;
@@ -108,4 +108,19 @@
 
 .animate-ellipsis-delay-200 {
   animation: ellipsis 1.5s infinite 0.2s; /* Delay for the third dot */
+}
+
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+ .title{
+  font-size: 35px;
+ }
+}
+
+/* For larger screens */
+@media (min-width: 769px) {
+ .title{
+  font-size: 50px;
+ }
 }

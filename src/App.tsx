@@ -11,18 +11,18 @@ const LoadingScreen = () => (
   <div className="flex flex-col items-center justify-center h-screen w-screen bg-gray-900 text-white">
     {/* ✅ Bouncing Container with Shadow Underneath */}
     <div className="relative mb-6 animate-bounce">
-      <div className="w-64 h-64 bg-gray-800 rounded-full flex items-center justify-center shadow-2xl">
+      <div className="md:w-64 md:h-64 w-32 h-32 bg-gray-800 rounded-full flex items-center justify-center shadow-2xl">
         {/* ✅ Image */}
         <img 
           src="/bh_icon.png" 
           alt="Loading..." 
-          className="w-50 h-50" 
+          className="md:w-50 md:h-50 w-25 h-25" 
         />
       </div>
     </div>
 
     {/* ✅ Loading Text with Animated Ellipses */}
-    <p className="text-xl title font-semibold animate-fade-in animate-delay-200">
+    <p className="title font-semibold animate-fade-in animate-delay-200">
       Incoming Resume
       <span className="animate-ellipsis">.</span>
       <span className="animate-ellipsis-delay-100">.</span>
