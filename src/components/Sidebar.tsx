@@ -46,14 +46,29 @@ export default function Sidebar() {
   const fetchQuote = async () => {
     setLoading(true);  // ✅ Set loading to true before fetching
     try {
-      const response = await fetch("https://api.quotable.io/random");//https://quoteapi.pythonanywhere.com/
-      if (!response.ok) throw new Error("Failed to fetch quote"); // ✅ Error handling
-      const data: Quote = await response.json();
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      const apiUrl = isSafari
+        ? "https://zenquotes.io/api/random" // fallback for Safari
+        : "https://api.quotable.io/random"; // default
+  
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error("Failed to fetch quote");
+  
+      let data: Quote;
+      if (isSafari) {
+        const zenData = await response.json();
+        data = {
+          content: zenData[0].q,
+          author: zenData[0].a,
+        };
+      } else {
+        data = await response.json();
+      }
       setQuote(data);
     } catch (err) {
       setError((err as Error).message);
     } finally {
-      setLoading(false);  // ✅ Set loading to false after fetching (success or error)
+      setLoading(false); 
     }
   };
 
