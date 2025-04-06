@@ -44,31 +44,40 @@ export default function Sidebar() {
   const [error, setError] = useState<string | null>(null);
 
   const fetchQuote = async () => {
-    setLoading(true);  // ✅ Set loading to true before fetching
+    
+    setLoading(true);  
+
     try {
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      const apiUrl = isSafari
-        ? "https://zenquotes.io/api/random" // fallback for Safari
-        : "https://api.quotable.io/random"; // default
-  
-      const response = await fetch(apiUrl);
+      const isSafari = /^((?!chrome|chromium|android).)*safari/i.test(navigator.userAgent);
+
+      const source = isSafari
+        ? "zen" // fallback for Safari
+        : "favqs"; // default
+
+      //const devURL = `${proxyUrl}${encodeURIComponent(apiUrl)}`;
+      const response = await fetch(`https://sagepaths.dev.api.sagejherm.co/api/external_api.php?source=${source}`);
       if (!response.ok) throw new Error("Failed to fetch quote");
-  
+
       let data: Quote;
       if (isSafari) {
-        const zenData = await response.json();
+        const zen = await response.json();
         data = {
-          content: zenData[0].q,
-          author: zenData[0].a,
+          content: zen[0].q,
+          author: zen[0].a,
         };
       } else {
-        data = await response.json();
+        const favqs = await response.json();
+        data = {
+          content: favqs.quote.body,
+          author: favqs.quote.author,
+        };
+
       }
       setQuote(data);
     } catch (err) {
       setError((err as Error).message);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -98,37 +107,7 @@ export default function Sidebar() {
       <div
         className={`sidebar ${isCollapsed ? 'collapsed' : 'expanded'}`}
       >
-        {/* Sidebar Toggle Button */}
-        {isMobile && (
-          <div
-            className="sidebar-toggle"
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            style={{
-              cursor: 'pointer',
-              transition: 'transform 0.3s ease-in-out',
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-          >
-            {isCollapsed ? (
-              <FaChevronRight
-                className={`sidebar-toggle-icon ${isCollapsed ? 'glow' : ''}`}
-                style={{
-                  fontSize: '24px',
-                  color: '#ff6347',
-                }}
-              />
-            ) : (
-              <FaChevronLeft
-                className={`sidebar-toggle-icon ${!isCollapsed ? 'glow' : ''}`}
-                style={{
-                  fontSize: '24px',
-                  color: '#ff6347',
-                }}
-              />
-            )}
-          </div>
-        )}
+        <div className={`grid-sidebar ${isCollapsed ? 'collapsed' : 'expanded'}`}>
 
         {/* Sidebar Content */}
         {!isCollapsed && (
@@ -229,7 +208,7 @@ export default function Sidebar() {
               </div>
             </div>
 
-            
+
 
             {/* Download CV Button */}
             <div className="mt-6 w-full flex items-center justify-center">
@@ -245,7 +224,7 @@ export default function Sidebar() {
               <a href="https://www.linkedin.com/in/jheremi-villarreal-b05850138" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
                 <FaLinkedin size={20} />
               </a>
-              <a href="https://www.buymeacoffee.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
+              <a href="https://www.buymeacoffee.com/jherm" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white">
                 <FaBeer size={20} />
               </a>
             </div>
@@ -263,7 +242,7 @@ export default function Sidebar() {
       </div> */}
 
 
-      {/* Code Snippet of the Day */}
+            {/* Code Snippet of the Day */}
             {/* <div className="mt-6 w-full text-left">
         <p className="font-semibold">Code Snippet of the Day</p>
         <code className="block bg-gray-700 p-2 rounded text-xs !font-mono">
@@ -292,9 +271,44 @@ export default function Sidebar() {
               </table>
             </div>
 
-            <ChessBox/>
+            <ChessBox />
           </div>
         )}
+
+         {/* Sidebar Toggle Button */}
+ {isMobile && (
+          <div
+            className="sidebar-toggle"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            style={{
+              cursor: 'pointer',
+              transition: 'transform 0.3s ease-in-out',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            {isCollapsed ? (
+              <FaChevronRight
+                className={`sidebar-toggle-icon ${isCollapsed ? 'glow' : ''}`}
+                style={{
+                  fontSize: '24px',
+                  color: '#ff6347',
+                }}
+              />
+            ) : (
+              <FaChevronLeft
+                className={`sidebar-toggle-icon ${!isCollapsed ? 'glow' : ''}`}
+                style={{
+                  fontSize: '24px',
+                  color: '#ff6347',
+                  
+                }}
+              />
+            )}
+          </div>
+        )}
+        </div>
+       
 
       </div>
 

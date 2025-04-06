@@ -132,15 +132,16 @@
 
 
     .input-field, .select-field, .textarea-field {
-      padding: 0.3rem;
+      padding: 0.4rem;
+      font-size: 0.6rem;
     }
     .input-field::placeholder, .select-field, .select-field option, .select-field option:first-child, .textarea-field::placeholder {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       text-align: left;
     }
   
     .textarea-field {
-      height: 4rem; 
+      height: 5.5rem; 
     }
     
     .submit-btn {

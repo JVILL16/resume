@@ -41,8 +41,6 @@ export default function Feedback() {
       if (!response.ok) throw new Error("Failed to submit feedback. " + responseData.message);
       else setSuccessMessage(responseData.message);
 
-      handleClose
-
       setTimeout(() => {
         setSuccessMessage("");
         reset();
@@ -50,6 +48,7 @@ export default function Feedback() {
     } catch (err) {
       setError((err as Error).message);
     } finally {
+      handleClose
       setLoading(false);
     }
   };
@@ -113,9 +112,11 @@ export default function Feedback() {
                   {...register("type", { required: "Please select an issue" })}
                 >
                   <option value="">Select an issue</option>
-                  <option>Technical Issue</option>
+                  <option>Bug</option>
                   <option>Billing</option>
-                  <option>Account Issue</option>
+                  <option>Feature</option>
+                  <option>Error</option>
+                  <option>Typo</option>
                   <option>Other</option>
                 </select>
                 {errors.type && <p className="text-red-500">{errors.type.message}</p>}

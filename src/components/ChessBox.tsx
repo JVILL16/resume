@@ -139,7 +139,7 @@ const ChessBox = () => {
                             <td className="font-semibold p-2 rounded-t-lg bg-gray-700 text-white flex justify-center items-center w-full">
                                 <span className="text-[12px] flex-grow text-center">Daily Chess Puzzle</span>
                                 <button onClick={resetPuzzle} title="Reset" className="ml-2 !p-1 float-right !text-xs">
-                                   <RiResetLeftFill/>
+                                    <RiResetLeftFill />
                                 </button>
                             </td>
                         </tr>
@@ -147,7 +147,7 @@ const ChessBox = () => {
                             <td className="flex justify-center items-center">
                                 <div className="text-[12px] flex p-2">
                                     <span className="mr-2">You are </span>
-                                    {boardOrientation == "black" ? <FaChessKing size={15} color="black" /> : <FaChessKing size={15} color="white" />}
+                                    {boardOrientation == "white" ? <FaChessKing size={15} color="black" /> : <FaChessKing size={15} color="white" />}
                                 </div>
                             </td>
                         </tr>
@@ -160,42 +160,42 @@ const ChessBox = () => {
             {puzzle ? (
                 <div className="flex flex-col items-center">
                     <div className="relative">
-                    <Chessboard
-                        boardWidth={200}
-                        position={chessRef.current.fen()}
-                        // boardOrientation={boardOrientation} // Might need later on
-                        onPieceDrop={onDrop}
-                        onSquareClick={onPieceClick}
-                        customSquareStyles={{
-                            ...validMoves.reduce((styles, square) => {
-                                styles[square] = { backgroundColor: "rgba(255, 255, 0, 0.4)" };
-                                return styles;
-                            }, {} as { [key: string]: { backgroundColor: string } }),
-                            ...moveHighlight,
-                        }}
-                    />
+                        <Chessboard
+                            boardWidth={200}
+                            position={chessRef.current.fen()}
+                            // boardOrientation={boardOrientation} // Might need later on
+                            onPieceDrop={onDrop}
+                            onSquareClick={onPieceClick}
+                            customSquareStyles={{
+                                ...validMoves.reduce((styles, square) => {
+                                    styles[square] = { backgroundColor: "rgba(255, 255, 0, 0.4)" };
+                                    return styles;
+                                }, {} as { [key: string]: { backgroundColor: string } }),
+                                ...moveHighlight,
+                            }}
+                        />
                         {/* Puzzle Complete Overlay */}
-{isPuzzleComplete && (
-    <div
-        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-        className="animate-fadeIn absolute inset-0 bg-white backdrop-blur-[1px] flex flex-col pt-4 justify-top items-center text-white text-xl font-bold"
-    >
-        <div className="mb-4 flex items-center space-x-2 border-gray-600">
-            <p style={{ textShadow: '4px 4px 10px #000000' }}>Puzzle Complete! </p>
-            <div className="relative" >
-                {/* Green check circle */}
-                <GoCheckCircleFill color="green" size={20} />
-                {/* White background circle */}
-                <div className="absolute inset-0 flex justify-center items-center">
-                    <div className="w-5 h-5 bg-white rounded-full z-[-1]"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-)}
+                        {isPuzzleComplete && (
+                            <div
+                                style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                                className="animate-fadeIn absolute inset-0 bg-white backdrop-blur-[1px] flex flex-col pt-4 justify-top items-center text-white text-xl font-bold"
+                            >
+                                <div className="mb-4 flex items-center space-x-2 border-gray-600">
+                                    <p style={{ textShadow: '4px 4px 10px #000000' }}>Puzzle Complete! </p>
+                                    <div className="relative" >
+                                        {/* Green check circle */}
+                                        <GoCheckCircleFill color="green" size={20} />
+                                        {/* White background circle */}
+                                        <div className="absolute inset-0 flex justify-center items-center">
+                                            <div className="w-5 h-5 bg-white rounded-full z-[-1]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                     </div>
-                    
+
                     <span className="text-xs">Solve the puzzle in {Math.ceil(puzzle.puzzle.solution.length / 2)} turns</span>
 
                     <p className="mt-2 flex gap-1">
@@ -204,7 +204,7 @@ const ChessBox = () => {
                     </p>
 
                     <Tooltip id="solution-tooltip" place="top" clickable>
-                        <div className="text-sm">
+                        <div className="text-sm tooltip-content">
                             <p>
                                 <strong>Moves:</strong> {userMovesOnly.length > 0 ? userMovesOnly.join(", ") : "No solution available"}
                             </p>

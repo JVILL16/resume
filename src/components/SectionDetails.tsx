@@ -8,6 +8,12 @@ import Projects from './Projects';
 import Summary from './Summary';
 import Education from './Education';
 
+
+interface SectionDetailsProps {
+    activeSection: any;
+    setActiveSection: (section: any) => void;
+  }
+
 const records = [
     { id: "education", title: "Education", icon: <FaGraduationCap size={25} /> },
     { id: "projects", title: "Projects", icon: <FaProjectDiagram size={25} /> },
@@ -45,18 +51,18 @@ const sectionContent: any = {
     }
 };
 
-export default function SectionDetails() {
-    const [activeSection, setActiveSection] = useState("summary");
+export default function SectionDetails({ activeSection, setActiveSection }: SectionDetailsProps) {
+    
 
     const handleDragEnd = (_: any, info: any) => {
         const threshold = 120;
         if (info.offset.x > threshold) {
-            setActiveSection((prev) => {
+            setActiveSection((prev:any) => {
                 const currentIndex = records.findIndex((r) => r.id === prev);
                 return records[(currentIndex + 1) % records.length].id;
             });
         } else if (info.offset.x < -threshold) {
-            setActiveSection((prev) => {
+            setActiveSection((prev: any) => {
                 const currentIndex = records.findIndex((r) => r.id === prev);
                 return records[(currentIndex - 1 + records.length) % records.length].id;
             });
