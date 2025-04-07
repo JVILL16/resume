@@ -133,7 +133,7 @@
 
 /* Alert Box */
 .app-alert-box {
-  background-color: #3b82f6; /* bg-blue-500 */
+  background-color: #3f526b; /* bg-blue-500 */
   padding: 1rem; /* p-4 */
   border-radius: 0.5rem; /* rounded-lg */
   width: 100%;
@@ -156,7 +156,7 @@
   font-size: 0.875rem; /* text-sm */
   font-weight: bold;
   background: transparent;
-  color: black;
+  color: white;
   position: absolute;
   top: 0.5rem; /* Adjust for some spacing from the top */
   right: 0.5rem; /* Adjust for some spacing from the right */
