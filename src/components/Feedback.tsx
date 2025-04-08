@@ -157,26 +157,26 @@ export default function Feedback() {
           {/* Display success message with animation */}
           {success && (
             <motion.div
-              className="success-message"
+              className="success-message text-xs"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              {success}
+              {"Thank you for your submission! We've received your request and will reach out via email shortly to continue the conversation."}
             </motion.div>
           )}
 
           {/* Display error message with animation */}
           {error && (
             <motion.div
-              className="error-message"
+              className="error-message text-xs"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              {error}
+              {"Oops! Something went wrong with your submission. Please try again later, or contact us directly if the issue persists."}
             </motion.div>
           )}
           
