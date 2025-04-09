@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import '../styles/PricingPage.css';
 import Footer from "./Footer";
 import { FaCrown } from "react-icons/fa";
-import { linearGradient } from "framer-motion/client";
 import { useForm } from "react-hook-form";
 
 type PriceFormData = {
@@ -255,7 +254,7 @@ export default function PricingPage() {
 
 
                         <textarea
-                          placeholder="Please provide description of your request and what days you are avaliablke to meet or talk"
+                          placeholder="Please provide a description or your request and your availability."
                           className="textarea-field"
                           {...register("request", { required: "Comments are required" })}
                         ></textarea>
