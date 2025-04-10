@@ -8,7 +8,7 @@ const categories: any = ["Technical", "Get to Know Me", "Other Questions"];
 const summaries: any = {
   "Technical": [
     { question: "What technologies are you currently learning?", answer: "I'm currently learning TypeScript, AWS services, and advanced Python for automation." },
-    { question: "Do you have experience with cloud computing?", answer: "Yes, I've used AWS and Firebase for hosting and cloud services." },
+    { question: "Do you have experience with cloud computing?", answer: "No, but I'm currently learning AWS and Firebase for hosting and cloud services." },
     { question: "What’s the most challenging project you've worked on?", answer: "A large-scale web scraping project that involved handling thousands of data points daily." },
     { question: "What’s your biggest strength as a developer?", answer: "Adapting quickly to new technologies and solving problems efficiently." },
   ],
@@ -17,7 +17,7 @@ const summaries: any = {
     { question: "What's your favorite hobby?", answer: "Short answer, Ultimate Frisbee. I do enjoy other activities whether it is volleyball, coding, basketball, carpentry, golfing, etc. However, Ultimate Frisbee is my favorite." },
     { question: "Where are you from?", answer: "I'm from McAllen, TX. I moved to San Antonio in 2015 for university." },
     { question: "What inspired you to become a developer?", answer: "I’ve always been curious about how things work. Once I built my first website, I was hooked." },
-    { question: "What do you do outside of coding?", answer: "I enjoy playing Ultimate Frisbee, watching basketball, and working on side projects." },
+    { question: "What do you do outside of coding?", answer: "I enjoy playing Ultimate Frisbee, playing basketball or other sports leagues, and fix computers or hardware." },
   ],
 
   "Other Questions": [

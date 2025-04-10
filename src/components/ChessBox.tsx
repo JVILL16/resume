@@ -147,7 +147,7 @@ const ChessBox = () => {
                             <td className="flex justify-center items-center">
                                 <div className="text-[12px] flex p-2">
                                     <span className="mr-2">You are </span>
-                                    {boardOrientation == "white" ? <FaChessKing size={15} color="black" /> : <FaChessKing size={15} color="white" />}
+                                    <FaChessKing size={15} color={boardOrientation} />
                                 </div>
                             </td>
                         </tr>

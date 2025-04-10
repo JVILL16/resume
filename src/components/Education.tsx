@@ -2,12 +2,16 @@ import { motion } from "framer-motion";
 import '../styles/Education.css';
 
 const courses = [
-  "Computer Science Fundamentals",
-  "Advanced JavaScript & TypeScript",
-  "Web Development with React",
-  "Database Management & SQL",
-  "Cloud Computing with AWS",
-  "Machine Learning Basics",
+  "Analysis of Algorithms",
+  "Application Programming",
+  "Web Technologies",
+  "Data Structures",
+  "Enterprise Software Engineering",
+  "Software Engineering",
+  "Secure Software Development and Analysis",
+  "Principles of Cybersecurity",
+  "Computer Architecture",
+  "Computer and Information Security",
 ];
 
 const Education = () => {
