@@ -44,7 +44,7 @@ const ChessBox = () => {
             const moves = chess.history({ verbose: true });
             if (moves.length > 0) {
                 const firstMoveColor = moves[0].color;
-                setBoardOrientation(firstMoveColor === "w" ? "black" : "white");
+                setBoardOrientation(firstMoveColor !== "w" ? "black" : "white");
             }
         }
     }, [puzzle]);

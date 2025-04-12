@@ -24,7 +24,7 @@ const summaries: any = {
     { question: "Do you do freelance work?", answer: "Yes, I usually email or go to small businesses and offer my work." },
     { question: "What's your approach to problem-solving?", answer: "I break problems into smaller parts, research solutions, and test different approaches." },
     { question: "Do you mentor other developers?", answer: "Yes! I enjoy helping junior devs by answering questions and reviewing code." },
-    
+    { question: "What technologies did you use to make this website?", answer: "I used React Vite with Typescript and PHP." },
   ],
 };
 

@@ -14,9 +14,9 @@ const projects: any = {
       description: "Project management tool for tracking client data, tickets, projects, meetings, and tasks.",
       type: "Frontend",
       taskDistribution: [
-        { name: 'Coding', value: 60 },
-        { name: 'Debugging', value: 25 },
-        { name: 'Testing', value: 15 },
+        { name: 'Coding', value: 55 },
+        { name: 'Debugging', value: 10 },
+        { name: 'Testing', value: 35 },
       ],
       time: "120 hours"
     },
@@ -37,7 +37,7 @@ const projects: any = {
       type: "Backend",
       taskDistribution: [
         { name: 'Coding', value: 60 },
-        { name: 'Debugging', value: 25 },
+        { name: 'Optimization', value: 25 },
         { name: 'Testing', value: 15 },
       ],
       time: "120 hours"
@@ -58,9 +58,9 @@ const projects: any = {
       description: "UI-enhanced file upload validation module for SOLO project.",
       type: "Frontend",
       taskDistribution: [
-        { name: 'Coding', value: 60 },
+        { name: 'Coding', value: 55 },
         { name: 'Debugging', value: 25 },
-        { name: 'Testing', value: 15 },
+        { name: 'Testing', value: 20 },
       ],
       time: "120 hours"
     },
@@ -69,9 +69,9 @@ const projects: any = {
       description: "Secure API for verifying vendor payments using internal and external authentication.",
       type: "Backend",
       taskDistribution: [
-        { name: 'Coding', value: 60 },
-        { name: 'Debugging', value: 25 },
-        { name: 'Testing', value: 15 },
+        { name: 'Coding', value: 30 },
+        { name: 'Optimization', value: 50 },
+        { name: 'Testing', value: 20 },
       ],
       time: "120 hours"
     },
@@ -80,8 +80,8 @@ const projects: any = {
       description: "Analytics dashboard for contract managers, segregated by client logins.",
       type: "Full Stack",
       taskDistribution: [
-        { name: 'Frontend', value: 45 },
-        { name: 'Backend', value: 45 },
+        { name: 'Frontend', value: 60 },
+        { name: 'Backend', value: 30 },
         { name: 'Database', value: 10 },
       ],
       time: "50 hours"
@@ -91,9 +91,9 @@ const projects: any = {
       description: "Automated client XML payment/placement processing for transactions and adjustments.",
       type: "Backend",
       taskDistribution: [
-        { name: 'Coding', value: 60 },
-        { name: 'Debugging', value: 25 },
-        { name: 'Testing', value: 15 },
+        { name: 'Coding', value: 45 },
+        { name: 'Optimization', value: 15 },
+        { name: 'Testing', value: 45 },
       ],
       time: "120 hours"
     },
@@ -102,9 +102,9 @@ const projects: any = {
       description: "Led vision and wireframing for file storage, enabling client downloads and previews.",
       type: "UI/UX",
       taskDistribution: [
-        { name: 'Coding', value: 60 },
-        { name: 'Debugging', value: 25 },
-        { name: 'Testing', value: 15 },
+        { name: 'Wireframing', value: 40 },
+        { name: 'User Testing', value: 30 },
+        { name: 'Styling', value: 30 },
       ],
       time: "120 hours"
     },
@@ -113,37 +113,79 @@ const projects: any = {
       description: "Managed budgeting, wireframing, and web-scraping for tracking team stats, sign-ups, tournaments.",
       type: "UI/UX",
       taskDistribution: [
-        { name: 'Coding', value: 60 },
-        { name: 'Debugging', value: 25 },
-        { name: 'Testing', value: 15 },
+        { name: 'Wireframing', value: 30 },
+        { name: 'User Testing', value: 40 },
+        { name: 'Styling', value: 30 },
       ],
-      time: "120 hours"
+      time: 120
     },
   ],
   Independent: [
     {
       title: "SagePaths",
       description: "Sandbox for using what I learned / test, web scraping, Google Sheets API, automation, and basic auth.",
+      type: "Full Stack",
+      taskDistribution: [
+        { name: 'Frontend', value: 36 },
+        { name: 'Backend', value: 34 },
+        { name: 'Database', value: 30 },
+      ],
+      time: "50 hours"
     },
     {
       title: "WebSockets",
       description: "Implemented real-time communication for live data updates.",
+      type: "Full Stack",
+      taskDistribution: [
+        { name: 'Frontend', value: 30 },
+        { name: 'Backend', value: 65 },
+        { name: 'Database', value: 5 },
+      ],
+      time: "50 hours"
     },
     {
       title: "Auto Unit Testing",
       description: "Built Selenium, Cucumber, and Postman test automation for regression and E2E testing.",
+      type: "Full Stack",
+      taskDistribution: [
+        { name: 'Frontend', value: 25 },
+        { name: 'Backend', value: 70 },
+        { name: 'Database', value: 5 },
+      ],
+      time: "50 hours"
     },
     {
       title: "BP3 Auto",
       description: "Assisted in workflow automation and process optimization.",
+      type: "Full Stack",
+      taskDistribution: [
+        { name: 'Frontend', value: 20 },
+        { name: 'Backend', value: 75 },
+        { name: 'Database', value: 5 },
+      ],
+      time: "50 hours"
     },
     {
       title: "Contract-Manager Site",
       description: "Developed features for legal contract management, ensuring compliance and security.",
+      type: "Full Stack",
+      taskDistribution: [
+        { name: 'Frontend', value: 70 },
+        { name: 'Backend', value: 25 },
+        { name: 'Database', value: 5 },
+      ],
+      time: "50 hours"
     },
     {
       title: "Task Manager",
       description: "Creating a project management tool ",
+      type: "Full Stack",
+      taskDistribution: [
+        { name: 'Frontend', value: 90 },
+        { name: 'Backend', value: 5 },
+        { name: 'Database', value: 5 },
+      ],
+      time: "50 hours"
     },
   ],
 };
@@ -153,11 +195,7 @@ const techStack = [
   "Selenium", "Node.js", "PHP", "VBA", "Postman", "XML"
 ];
 
-const taskDistribution = [
-  { name: 'Coding', value: 60 },
-  { name: 'Debugging', value: 25 },
-  { name: 'Testing', value: 15 },
-];
+
 
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658'];
 
@@ -171,7 +209,6 @@ const Card = ({
   isFlipped,
 }: {
   onClick: () => void;
-  index: any;
   frontContent: any;
   backContent: any;
   className?: string;
@@ -216,7 +253,7 @@ const Projects = () => {
         : [...prev, cardName]
     );
   };
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   return (
     <div className="projects-container">
@@ -229,8 +266,8 @@ const Projects = () => {
             key={category}
             onClick={() => setActiveTab(category)}
             className={`rounded-md font-semibold transition-all ${activeTab === category
-                ? "bg-blue-500 shadow-lg shadow-blue-500/50"
-                : "bg-gray-700 hover:bg-gray-600"
+              ? "bg-blue-500 shadow-lg shadow-blue-500/50"
+              : "bg-gray-700 hover:bg-gray-600"
               }`}
           >
             {category}
@@ -244,7 +281,6 @@ const Projects = () => {
 
           <Card
             onClick={() => { handleFlip(project.title) }}
-            index={index}
             key={project.title}
             delay={index * 0.2}
             isFlipped={flippedCards.includes(project.title)}
@@ -264,53 +300,43 @@ const Projects = () => {
             ></motion.div> */}
 
                 <h3 className="text-xl font-semibold">{project.title}</h3>
-                {project.type && (
-                  <p className="text-blue-300">{project.type}</p>
-                )}
+                <p className="text-blue-300">{project.type}</p>
                 <p className="text-gray-400 text-sm mt-2">{project.description}</p>
               </>
             }
             backContent={
               <>
-                <h4 className="font-semibold text-center text-blue-300">{project.title} - Distribustion</h4>
-                <div className="flex gap-15 justify-center  w-full h-full">
-                  {/* Chart */}
-                  <div className="flex flex-col items-start">
+                <h4 className="font-semibold text-center text-blue-300 mb-2">
+                  {project.title} - Distribution
+                </h4>
 
-                    <PieChart width={90} height={90}>
+                <div className="flex flex-row items-center justify-center gap-10 w-full">
+                  {/* Chart */}
+                  <div className="flex flex-col">
+                    <PieChart width={isMobile ? 45 : 70} height={isMobile ? 45 : 70}>
                       <Pie
                         data={project?.taskDistribution}
                         cx="50%"
                         cy="50%"
-                        outerRadius={35}
+                        outerRadius={isMobile ? 22 : 34}
                         dataKey="value"
-                        labelLine={false} // Removes the connecting lines between labels and slices
+                        labelLine={false}
                       >
-                        {project?.taskDistribution.map((entry:any, index:any) => (
+                        {project?.taskDistribution.map((_entry: any, index: any) => (
                           <Cell
                             key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}
                           />
                         ))}
-
-                        {/* Use LabelList to display percentages properly around the pie */}
-                        {/* <LabelList
-                      dataKey="value"
-                      position="outside"
-                      fill="#fff"
-                      fontSize={15}
-                      formatter={(value:any, entry:any) => `${((value / taskDistribution.reduce((acc, curr) => acc + curr.value, 0)) * 100).toFixed(0)}%`}
-                    /> */}
                       </Pie>
-                      {/* Custom Tooltip to show percentage on hover */}
+
+                      {/* Tooltip for hover */}
                       <Tooltip
                         content={({ payload }) => {
                           if (!payload || payload.length === 0) return null;
-
                           const data = payload[0].payload;
-                          const total = project?.taskDistribution.reduce((acc:any, curr:any) => acc + curr.value, 0);
+                          const total = project?.taskDistribution.reduce((acc: any, curr: any) => acc + curr.value, 0);
                           const percentage = ((data.value / total) * 100).toFixed(0);
-
                           return (
                             <div className="text-xs p-2 bg-gray-900 text-white rounded">
                               <p>{`${data.name}: ${percentage}%`}</p>
@@ -321,26 +347,27 @@ const Projects = () => {
                     </PieChart>
                   </div>
 
-                  {/* Custom Legend */}
-                  <div className="flex flex-col justify-center gap-1">
-                    {project?.taskDistribution.map((entry:any, index:any) => {
-                      // Calculate the percentage for the custom legend
-                      const percentage = (entry.value / project?.taskDistribution.reduce((acc:any, curr:any) => acc + curr.value, 0) * 100).toFixed(0);
+                  {/* Legend */}
+                  <div className="flex flex-col justify-center gap-1 md:text-sm text-[10px]">
+                    {project?.taskDistribution.map((entry: any, index: any) => {
+                      const percentage = (
+                        (entry.value / project?.taskDistribution.reduce((acc: any, curr: any) => acc + curr.value, 0)) * 100
+                      ).toFixed(0);
                       return (
-                        <div key={entry.name} className="flex items-center gap-1">
+                        <div key={entry.name} className="flex items-center gap-2">
                           <span
                             className="inline-block w-3 h-3 rounded-sm"
                             style={{ backgroundColor: COLORS[index % COLORS.length] }}
                           ></span>
-                          <span>{entry.name} - {percentage}%  </span>
+                          <span>{entry.name} - {percentage}%</span>
                         </div>
                       );
                     })}
                   </div>
                 </div>
+
               </>
             }
-
 
 
 
