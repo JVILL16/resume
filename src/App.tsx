@@ -7,7 +7,29 @@ import Home from "./components/Home";
 import Sidebar from './components/Sidebar';
 import { useEffect, useState } from "react"
 
+const trackAuthenticatedUser = async () => {
+  try {
+     await fetch('https://sagepaths.dev.api.sagejherm.co/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        referrer: document.referrer,
+        screen: {
+          width: window.screen.width,
+          height: window.screen.height,
+        },
+      }),
+    });
 
+    // if (!res.ok) {
+    //   console.error('Tracking request failed:', res.statusText);
+    // }
+  } catch (err) {
+    console.error('Failed to track authenticated user:', err);
+  }
+};
 
 
 
@@ -73,7 +95,8 @@ function App() {
   useEffect(() => {
     // Simulate loading time (API calls, assets, etc.)
     const timeout = setTimeout(() => setIsLoading(false), 5000);
-
+   
+    trackAuthenticatedUser();
     return () => clearTimeout(timeout);
   }, []);
 
