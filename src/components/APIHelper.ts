@@ -1,23 +1,49 @@
-const API = "https://sagepaths.dev.api.sagejherm.co/api/client_auth_api";
+const API = "http://sagepaths.dev.api.sagejherm.co/api/client_auth_api";
 
+/**
+ * Generic fetch wrapper that safely parses JSON
+ */
+async function fetchJSON(url: string, options?: RequestInit) {
+    const res = await fetch(url, options);
+    const text = await res.text();
+
+    try {
+        return text ? JSON.parse(text) : {};
+    } catch (err) {
+        console.error("Failed to parse JSON from:", url);
+        console.error("Response text:", text);
+        throw err;
+    }
+}
+
+/**
+ * LOGIN
+ */
 export const login = async (email: string, password: string) => {
-    const res = await fetch(`${API}/auth.php`, {
+    return fetchJSON(`${API}/users/login.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     });
-    return res.json();
 };
 
+/**
+ * GET CLIENT ITEMS
+ */
 export const getItems = async (token: string) => {
-    const res = await fetch(`${API}/clients/read.php`, {
-        headers: { Authorization: `Bearer ${token}` }
+    return fetchJSON(`${API}/clients/read.php`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
     });
-    return res.json();
 };
 
+/**
+ * CREATE ITEM
+ */
 export const createItem = async (token: string, name: string) => {
-    const res = await fetch(`${API}/clients/create.php`, {
+    return fetchJSON(`${API}/clients/create.php`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -25,11 +51,13 @@ export const createItem = async (token: string, name: string) => {
         },
         body: JSON.stringify({ name })
     });
-    return res.json();
 };
 
+/**
+ * UPDATE ITEM
+ */
 export const updateItem = async (token: string, id: number, name: string) => {
-    const res = await fetch(`${API}/clients/update.php`, {
+    return fetchJSON(`${API}/clients/update.php`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -37,13 +65,17 @@ export const updateItem = async (token: string, id: number, name: string) => {
         },
         body: JSON.stringify({ id, name })
     });
-    return res.json();
 };
 
+/**
+ * DELETE ITEM
+ */
 export const deleteItem = async (token: string, id: number) => {
-    const res = await fetch(`${API}/clients/delete.php?id=${id}`, {
+    return fetchJSON(`${API}/clients/delete.php?id=${id}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` }
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
     });
-    return res.json();
 };

@@ -7,13 +7,14 @@ export default function ClientDashboard() {
   const [newName, setNewName] = useState("");
 
   useEffect(():any => {
-    if (!token) return (window.location.href = "/client-login");
+    if (!token) return (window.location.href = "/client/login");
 
     load();
   }, []);
 
   async function load() {
     const res = await getItems(token!);
+    console.log(res);
     setItems(res);
   }
 
