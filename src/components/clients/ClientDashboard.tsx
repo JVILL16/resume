@@ -1,67 +1,129 @@
 import { useEffect, useState } from "react";
-import { getItems, createItem, updateItem, deleteItem } from "../APIHelper.ts";
+import { getItems } from "../APIHelper";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 export default function ClientDashboard() {
-  const token = localStorage.getItem("clientToken");
+  const token = localStorage.getItem("client_token");
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [items, setItems] = useState<any[]>([]);
-  const [newName, setNewName] = useState("");
 
-  useEffect(():any => {
-    if (!token) return (window.location.href = "/client/login");
+  useEffect(() => {
+    if (!token) {
+      setError("No authentication token found.");
+      setLoading(false);
+      return;
+    }
 
-    load();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const res = await getItems(token);
+        console.log(res);
+        if (!res || res.error) {
+          throw new Error(res?.error || "Failed to fetch data");
+        }
 
-  async function load() {
-    const res = await getItems(token!);
-    console.log(res);
-    setItems(res);
-  }
+        if (Array.isArray(res.data) && res.data.length === 0) {
+          setItems([]);
+        } else {
+          setItems(res.data || []);
+        }
+      } catch (err: any) {
+        setError(err.message || "Server error");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  async function addNew() {
-    await createItem(token!, newName);
-    setNewName("");
-    load();
-  }
+    fetchData();
+  }, [token]);
 
-  async function save(id: number, name: string) {
-    await updateItem(token!, id, name);
-    load();
-  }
-
-  async function remove(id: number) {
-    await deleteItem(token!, id);
-    load();
-  }
-
-  return (
-    <div className="p-6 text-white bg-gray-900 min-h-screen">
-      <h1 className="text-2xl mb-4">Client Dashboard</h1>
-
-      <div className="flex gap-2 mb-4">
-        <input className="p-2" value={newName} onChange={(e) => setNewName(e.target.value)} />
-        <button onClick={addNew} className="bg-green-600 p-2 rounded">Add</button>
+  // ------------------------------
+  // Loading State
+  // ------------------------------
+  if (loading) {
+    return (
+      <div className="h-screen w-full flex justify-center items-center bg-gray-900 text-white">
+        <div className="animate-spin w-14 h-14 rounded-full border-4 border-yellow-400 border-t-transparent"></div>
       </div>
+    );
+  }
 
-      {items.map(item => (
-        <div key={item.id} className="p-2 mb-2 bg-gray-800 rounded flex justify-between">
-          <input
-            className="bg-transparent"
-            value={item.name}
-            onChange={(e) =>
-              setItems(items.map(i => i.id === item.id ? { ...i, name: e.target.value } : i))
-            }
-          />
-          <div className="flex gap-2">
-            <button onClick={() => save(item.id, item.name)} className="bg-blue-600 p-1 px-2 rounded">
-              Save
-            </button>
-            <button onClick={() => remove(item.id)} className="bg-red-600 p-1 px-2 rounded">
-              X
-            </button>
-          </div>
+  // ------------------------------
+  // Error State
+  // ------------------------------
+  if (error) {
+    return (
+      <div className="h-screen w-full flex justify-center items-center bg-gray-900 px-6">
+        <div className="
+          bg-gradient-to-br from-yellow-500/20 to-yellow-700/20
+          border border-yellow-400 
+          text-yellow-200 
+          rounded-xl p-6 max-w-md w-full 
+          text-center animate-fade-in shadow-lg backdrop-blur-sm
+        ">
+          <FaExclamationTriangle className="text-yellow-400 text-14 w-14 h-14 mx-auto mb-3 drop-shadow-md animate-pulse" />
+          <h2 className="text-2xl font-semibold mb-2">Something Went Wrong</h2>
+          <p className="mb-4">{error}</p>
+          <button
+            onClick={() => {
+              localStorage.removeItem("client_token");
+              window.location.href = "/client/login";
+            }}
+            className="
+              px-6 py-2 rounded-lg
+              bg-gradient-to-r from-yellow-500 to-yellow-600
+              hover:from-yellow-600 hover:to-yellow-700
+              transition font-medium text-gray-900
+              shadow-md hover:shadow-yellow-500/40
+            "
+          >
+            Return to Login
+          </button>
         </div>
-      ))}
+      </div>
+    );
+  }
+
+  // ------------------------------
+  // Empty State
+  // ------------------------------
+  if (items.length === 0) {
+    return (
+      <div className="h-screen w-full flex justify-center items-center bg-gray-900 px-6">
+        <div className="
+          bg-gradient-to-br from-yellow-500/20 to-yellow-700/20
+          border border-yellow-400
+          text-yellow-200
+          rounded-xl p-6 max-w-md w-full
+          text-center animate-fade-in shadow-lg backdrop-blur-sm
+        ">
+          <FaExclamationTriangle className="text-yellow-400 w-14 h-14 mx-auto mb-3 drop-shadow-md animate-pulse" />
+          <h2 className="text-2xl font-semibold mb-2">No Data Found</h2>
+          <p className="text-yellow-300">Your dashboard is currently empty.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // ------------------------------
+  // Main Dashboard
+  // ------------------------------
+  return (
+    <div className="min-h-screen bg-gray-900 text-white p-6 animate-fade-in">
+      <h1 className="text-3xl mb-6 font-semibold">Client Dashboard</h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="p-4 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition"
+          >
+            <h3 className="text-lg mb-2 font-medium">{item.name}</h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

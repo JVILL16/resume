@@ -8,19 +8,32 @@ export default function ClientLogin() {
   const [error, setErr] = useState("");
 
 async function handleLogin() {
-    setLoading(true);
+  setLoading(true);
+  setErr(""); // clear previous errors
 
-    setTimeout(async () => {
-      const res = await login(email, password);
-      if (res.error) return setErr("Invalid credentials:" + res.error);
-      console.log(res);
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const res = await login(email, password);
+    // Check for API error
+    if (!res || res.status !== 200) {
+      setErr("Login failed: " + (res?.message || "Unknown error"));
       setLoading(false);
-      localStorage.setItem("clientToken", res.token);
-      window.location.href = "/client/dashboard";
-    }, 1500);
-    
-    
+      return;
+    }
+
+    // Success — store token
+    localStorage.setItem("client_token", res.data.token);
+    window.location.href = "/client/dashboard";
+
+  } catch (err: any) {
+    console.error(err);
+    setErr("Server error. Please try again later.");
+    setLoading(false);
   }
+}
+
+
   return (
     <div className="w-full h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center text-white relative overflow-hidden">
 

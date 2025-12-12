@@ -1,4 +1,4 @@
-const API = "http://sagepaths.dev.api.sagejherm.co/api/client_auth_api";
+const API = "https://sagepaths-dev-api.sagejherm.co/api/client_auth_api";
 
 /**
  * Generic fetch wrapper that safely parses JSON
