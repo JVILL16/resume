@@ -55,7 +55,7 @@ export default function Sidebar() {
         : "favqs"; // default
 
       //const devURL = `${proxyUrl}${encodeURIComponent(apiUrl)}`;
-      const response = await fetch(`https://sagepaths.dev.api.sagejherm.co/api/external_api.php?source=${source}`);
+      const response = await fetch(`https://sagepaths-dev-api.sagejherm.co/api/external_api.php?source=${source}`);
       if (!response.ok) throw new Error("Failed to fetch quote");
 
       let data: Quote;
@@ -114,7 +114,7 @@ export default function Sidebar() {
           <div className="sidebar-content">
             {/* Profile Picture */}
             <img
-              src="/pfp-jheremi.PNG"
+              src="/pfp-jheremi.png"
               alt="Profile"
               className="w-24 h-24 rounded-full border-4 border-yellow-500 "
             />

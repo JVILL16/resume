@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 
 const trackAuthenticatedUser = async () => {
   try {
-     await fetch('https://sagepaths.dev.api.sagejherm.co/api/track', {
+     await fetch('https://sagepaths-dev-api.sagejherm.co/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
