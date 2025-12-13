@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className="bg-gray-800 text-white px-6 py-3 flex justify-between items-center shadow-md border-b border-gray-700 sticky top-0 z-50">
       {/* Left - App Title */}
       <div className="text-xl font-bold tracking-wide">
-        Client Portal
+        SPU Portal
       </div>
 
       {/* Center - Nav Links */}

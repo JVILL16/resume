@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
-import { getItems } from "../../APIHelper";
 import { FaExclamationTriangle } from "react-icons/fa";
+import {
+  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell,
+} from "recharts";
+
+interface Item {
+  id: number;
+  name: string;
+  status: string;
+  amount: number;
+}
 
 export default function ClientDashboard() {
   const token = localStorage.getItem("client_token");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
     if (!token) {
@@ -16,33 +25,45 @@ export default function ClientDashboard() {
       return;
     }
 
-    const fetchData = async () => {
+    const fetchFakeData = async () => {
       try {
-        const res = await getItems(token);
-        console.log(res);
-        if (!res || res.error) {
-          throw new Error(res?.error || "Failed to fetch data");
-        }
+        // simulate network delay
+        await new Promise((resolve) => setTimeout(resolve, 1500));
 
-        if (Array.isArray(res.data) && res.data.length === 0) {
-          setItems([]);
-        } else {
-          setItems(res.data || []);
-        }
+        // Fake dashboard items
+        const fakeData: Item[] = [
+          { id: 1, name: "Project Alpha", status: "Active", amount: 1250 },
+          { id: 2, name: "Project Beta", status: "Pending", amount: 980 },
+          { id: 3, name: "Project Gamma", status: "Completed", amount: 2400 },
+          { id: 4, name: "Project Delta", status: "Active", amount: 1800 },
+          { id: 5, name: "Project Epsilon", status: "Pending", amount: 560 },
+          { id: 6, name: "Project Zeta", status: "Active", amount: 3200 },
+        ];
+
+        setItems(fakeData);
+
       } catch (err: any) {
-        setError(err.message || "Server error");
+        setError("Failed to load dashboard data");
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 5000);
+        setLoading(false);
       }
     };
 
-    fetchData();
-
-    
+    fetchFakeData();
   }, [token]);
 
+  const totalProjects = items.length;
+  const totalRevenue = items.reduce((sum, item) => sum + item.amount, 0);
+  const activeProjects = items.filter((i) => i.status === "Active").length;
+
+  // Pie chart data
+  const pieData = [
+    { name: "Active", value: activeProjects },
+    { name: "Pending", value: items.filter((i) => i.status === "Pending").length },
+    { name: "Completed", value: items.filter((i) => i.status === "Completed").length },
+  ];
+
+  const COLORS = ["#FACC15", "#F59E0B", "#B45309"];
   // ------------------------------
   // Loading State
   // ------------------------------
@@ -78,9 +99,9 @@ export default function ClientDashboard() {
       <div className="h-screen w-full flex justify-center items-center bg-gray-900 px-6">
         <div className="
           bg-gradient-to-br from-yellow-500/20 to-yellow-700/20
-          border border-yellow-400 
-          text-yellow-200 
-          rounded-xl p-6 max-w-md w-full 
+          border border-yellow-400
+          text-yellow-200
+          rounded-xl p-6 max-w-md w-full
           text-center animate-fade-in shadow-lg backdrop-blur-sm
         ">
           <FaExclamationTriangle className="text-yellow-400 text-14 w-14 h-14 mx-auto mb-3 drop-shadow-md animate-pulse" />
@@ -131,18 +152,87 @@ export default function ClientDashboard() {
   // Main Dashboard
   // ------------------------------
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6 animate-fade-in">
-      <h1 className="text-3xl mb-6 font-semibold">Client Dashboard</h1>
+    <div className="min-h-screen bg-gray-900 text-white p-6 animate-fade-in space-y-6">
+      <h1 className="text-3xl font-semibold">Client Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {items.map((item) => (
-          <div
-            key={item.id}
-            className="p-4 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition"
-          >
-            <h3 className="text-lg mb-2 font-medium">{item.name}</h3>
-          </div>
-        ))}
+      {/* Top Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-gray-800 p-4 rounded-lg shadow hover:bg-gray-700 transition">
+          <p className="text-gray-400">Total Projects</p>
+          <h2 className="text-2xl font-bold">{totalProjects}</h2>
+        </div>
+        <div className="bg-gray-800 p-4 rounded-lg shadow hover:bg-gray-700 transition">
+          <p className="text-gray-400">Total Revenue</p>
+          <h2 className="text-2xl font-bold">${totalRevenue.toLocaleString()}</h2>
+        </div>
+        <div className="bg-gray-800 p-4 rounded-lg shadow hover:bg-gray-700 transition">
+          <p className="text-gray-400">Active Projects</p>
+          <h2 className="text-2xl font-bold">{activeProjects}</h2>
+        </div>
+      </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Line Chart */}
+        <div className="bg-gray-800 p-4 rounded-lg shadow">
+          <h3 className="mb-2 font-semibold">Revenue Overview</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <LineChart
+              data={items.map((i, idx) => ({ name: i.name, amount: i.amount }))}
+            >
+              <XAxis dataKey="name" stroke="#FACC15"/>
+              <YAxis stroke="#FACC15"/>
+              <Tooltip />
+              <Line type="monotone" dataKey="amount" stroke="#FACC15" strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Pie Chart */}
+        <div className="bg-gray-800 p-4 rounded-lg shadow">
+          <h3 className="mb-2 font-semibold">Project Status</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <PieChart>
+              <Pie
+                data={pieData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={70}
+                label
+              >
+                {pieData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Table */}
+      <div className="bg-gray-800 p-4 rounded-lg shadow overflow-x-auto">
+        <h3 className="mb-2 font-semibold">Project List</h3>
+        <table className="w-full text-left table-auto">
+          <thead className="text-gray-400 border-b border-gray-600">
+            <tr>
+              <th className="px-2 py-1">Project Name</th>
+              <th className="px-2 py-1">Status</th>
+              <th className="px-2 py-1">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => (
+              <tr key={item.id} className="border-b border-gray-700 hover:bg-gray-700 transition">
+                <td className="px-2 py-1">{item.name}</td>
+                <td className="px-2 py-1 text-yellow-400">{item.status}</td>
+                <td className="px-2 py-1">${item.amount.toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

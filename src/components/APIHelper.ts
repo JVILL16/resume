@@ -19,11 +19,11 @@ async function fetchJSON(url: string, options?: RequestInit) {
 /**
  * LOGIN
  */
-export const login = async (email: string, password: string) => {
+export const login = async (clientname: string, password: string) => {
     return fetchJSON(`${API}/users/login.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ clientname, password })
     });
 };
 
