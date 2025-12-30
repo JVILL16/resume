@@ -178,7 +178,7 @@ export default function ClientDashboard() {
           <h3 className="mb-2 font-semibold">Revenue Overview</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart
-              data={items.map((i, idx) => ({ name: i.name, amount: i.amount }))}
+              data={items.map((i,_idx) => ({ name: i.name, amount: i.amount }))}
             >
               <XAxis dataKey="name" stroke="#FACC15"/>
               <YAxis stroke="#FACC15"/>
@@ -202,7 +202,7 @@ export default function ClientDashboard() {
                 outerRadius={70}
                 label
               >
-                {pieData.map((entry, index) => (
+                {pieData.map((_entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
