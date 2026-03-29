@@ -114,7 +114,7 @@ export default function Sidebar() {
           <div className="sidebar-content">
             {/* Profile Picture */}
             <img
-              src="/pfp-jheremi.png"
+              src="/pfp-jheremi.PNG"
               alt="Profile"
               className="w-24 h-24 rounded-full border-4 border-yellow-500 "
             />

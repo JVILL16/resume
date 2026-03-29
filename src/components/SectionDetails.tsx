@@ -1,18 +1,17 @@
 import '../styles/SectionDetails.css';
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaUser, FaBriefcase, FaProjectDiagram, FaGraduationCap, FaFolder, FaTools } from "react-icons/fa";
+import { FaUser, FaBriefcase, FaProjectDiagram, FaGraduationCap, FaFolder, FaTools, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Skills from './Skills';
 import WorkExperience from './Experience';
 import Projects from './Projects';
 import Summary from './Summary';
 import Education from './Education';
 
-
 interface SectionDetailsProps {
     activeSection: any;
     setActiveSection: (section: any) => void;
-  }
+}
 
 const records = [
     { id: "education", title: "Education", icon: <FaGraduationCap size={25} /> },
@@ -52,43 +51,61 @@ const sectionContent: any = {
 };
 
 export default function SectionDetails({ activeSection, setActiveSection }: SectionDetailsProps) {
-    
 
+    const [dragX, setDragX] = useState(0);
+
+    const currentIndex = records.findIndex(r => r.id === activeSection);
+    const hasLeft = currentIndex < records.length - 1;
+    const hasRight = currentIndex > 0;
+
+    const goLeft = () => {
+        setActiveSection((prev: any) => {
+            const index = records.findIndex((r) => r.id === prev);
+            if (index >= records.length - 1) return prev; // stop at end
+            return records[index + 1].id;
+        });
+    };
+
+    const goRight = () => {
+        setActiveSection((prev: any) => {
+            const index = records.findIndex((r) => r.id === prev);
+            if (index <= 0) return prev; // stop at start
+            return records[index - 1].id;
+        });
+
+    };
     const handleDragEnd = (_: any, info: any) => {
         const threshold = 120;
-        if (info.offset.x > threshold) {
-            setActiveSection((prev:any) => {
-                const currentIndex = records.findIndex((r) => r.id === prev);
-                return records[(currentIndex + 1) % records.length].id;
-            });
-        } else if (info.offset.x < -threshold) {
-            setActiveSection((prev: any) => {
-                const currentIndex = records.findIndex((r) => r.id === prev);
-                return records[(currentIndex - 1 + records.length) % records.length].id;
-            });
-        }
+
+        if (info.offset.x > threshold) goLeft();
+        else if (info.offset.x < -threshold) goRight();
+
+        setDragX(0);
     };
 
     return (
         <div className="section-container">
+
             {/* Folder Navigation */}
             <div className="folder-navigation">
                 {records.map((record, index) => {
                     const isMobile = window.innerWidth < 768;
                     const isActive = record.id === activeSection;
-                    const position = records.findIndex((r) => r.id === activeSection) - index;
+                    const position = currentIndex - index;
+
                     const papers = [
-                        { id: 1, top: isMobile ? 7.5 : 15, right: isMobile ? 0 : 5, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60, color: 'green' },
-                        { id: 2, top: isMobile ? 7.5 : 15, right: isMobile ? 15 : 25, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60, color: 'red' },
-                        { id: 3, top: isMobile ? 7.5 : 15, right: isMobile ? 30 : 45, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60, color: 'blue' }
+                        { id: 1, top: isMobile ? 7.5 : 15, right: isMobile ? 0 : 5, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60 },
+                        { id: 2, top: isMobile ? 7.5 : 15, right: isMobile ? 15 : 25, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60 },
+                        { id: 3, top: isMobile ? 7.5 : 15, right: isMobile ? 30 : 45, width: isMobile ? 20 : 40, height: isMobile ? 30 : 60 }
                     ];
+
                     return (
                         <motion.div
                             key={record.id}
                             className="folder-item"
                             style={{ zIndex: isActive ? 10 : 5 - Math.abs(position) }}
                             animate={{
-                                x: position * (window.innerWidth < 768 ? 100 : 200),
+                                x: position * (isMobile ? 100 : 200),
                                 y: isActive ? -10 : 10,
                                 scale: isActive ? 1.2 : 0.8,
                                 opacity: isActive ? 1 : 0.5
@@ -96,41 +113,85 @@ export default function SectionDetails({ activeSection, setActiveSection }: Sect
                             drag={isActive ? "x" : false}
                             dragConstraints={{ left: 0, right: 0 }}
                             dragElastic={0.2}
+                            onDrag={(_e:any, info) => setDragX(info.offset.x)}
                             onDragEnd={handleDragEnd}
                             transition={{ type: "spring", stiffness: 80, damping: 14 }}
                         >
-                            {/* Multiple Papers Behind Non-Active Folders */}
+
+                            {/* Papers */}
                             {!isActive && papers.map((paper) => (
                                 <motion.div
                                     key={paper.id}
                                     className="absolute bg-white shadow-lg rounded-t-lg z-[-1]"
                                     style={{
-                                        top: `${paper.top}px`, // Adds vertical offset between papers to space them evenly
+                                        top: `${paper.top}px`,
                                         right: `${paper.right}px`,
                                         width: `${paper.width}px`,
                                         height: `${paper.height}px`,
                                         border: `2px solid black`
                                     }}
-                                    animate={{
-                                        y: isActive ? 50 : 0, // Adjusts the paper's vertical position based on folder's position
-                                        opacity: isActive ? 0 : 1,
-                                    }}
-                                    transition={{ type: "spring", stiffness: 60, damping: 12 }}
                                 />
                             ))}
+
                             {/* Folder Icon */}
-                            <div className="folder-icon">
+                            <div className="folder-icon relative">
                                 <FaFolder size={120} className="text-yellow-500 text-8xl drop-shadow-md" />
                                 <div className="notification-dot text-gray-800">{record.icon}</div>
+
+                                {isActive && (
+                                    <>
+                                        {/* LEFT (only if not first) */}
+                                        {hasLeft && (
+                                            <motion.div
+                                                className="absolute left-[-45px] top-1/2 -translate-y-1/2 cursor-pointer group"
+                                                animate={{ x: [-5, 0, -5] }}
+                                                transition={{ repeat: Infinity, duration: 1.2 }}
+                                                onClick={goLeft}
+                                            >
+                                                <FaArrowLeft
+                                                    size={22}
+                                                    style={{ opacity: dragX < 0 ? 1 : 0.6 }}
+                                                />
+
+                                                {/* <div className="absolute -top-8 left-1/2 -translate-x-1/2 
+                    bg-black text-white text-xs px-2 py-1 rounded 
+                    opacity-0 group-hover:opacity-100 transition">
+                    Drag Folder
+                </div> */}
+                                            </motion.div>
+                                        )}
+
+                                        {/* RIGHT (only if not last) */}
+                                        {hasRight && (
+                                            <motion.div
+                                                className="absolute right-[-45px] top-1/2 -translate-y-1/2 cursor-pointer group"
+                                                animate={{ x: [5, 0, 5] }}
+                                                transition={{ repeat: Infinity, duration: 1.2 }}
+                                                onClick={goRight}
+                                            >
+                                                <FaArrowRight
+                                                    size={22}
+                                                    style={{ opacity: dragX > 0 ? 1 : 0.6 }}
+                                                />
+
+                                                {/* <div className="absolute -top-8 left-1/2 -translate-x-1/2 
+                    bg-black text-white text-xs px-2 py-1 rounded 
+                    opacity-0 group-hover:opacity-100 transition">
+                    Drag Folder
+                </div> */}
+                                            </motion.div>
+                                        )}
+                                    </>
+                                )}
                             </div>
-                            {/* Folder Label */}
+
                             <h2 className="folder-label">{record.title}</h2>
                         </motion.div>
                     );
                 })}
             </div>
 
-            {/* Title Card */}
+            {/* Title Card (UNCHANGED) */}
             <motion.div
                 key={activeSection}
                 className="title-card"
@@ -139,7 +200,6 @@ export default function SectionDetails({ activeSection, setActiveSection }: Sect
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ type: "spring", stiffness: 60, damping: 12 }}
             >
-                {/* Left Side - Icon */}
                 <motion.div
                     className="title-card-left"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -147,7 +207,7 @@ export default function SectionDetails({ activeSection, setActiveSection }: Sect
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     {(() => {
-                        const icons:any = {
+                        const icons: any = {
                             tools: FaTools,
                             summary: FaUser,
                             experience: FaBriefcase,
@@ -166,12 +226,12 @@ export default function SectionDetails({ activeSection, setActiveSection }: Sect
                                 </motion.div>
                                 <motion.div
                                     className="shadow-animation"
-                                    animate={{ 
-                                        scaleX: [1, 1.1, 1], // Expands horizontally as icon moves down
-                                        scaleY: [1, 0.8, 1], // Compresses vertically as icon moves up
-                                        opacity: [0.25, 0.2, 0.25], // Slight fade effect
-                                        y: [5, 0, 5], // Moves down when icon moves up
-                                     }}
+                                    animate={{
+                                        scaleX: [1, 1.1, 1],
+                                        scaleY: [1, 0.8, 1],
+                                        opacity: [0.25, 0.2, 0.25],
+                                        y: [5, 0, 5],
+                                    }}
                                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                                 />
                             </>
@@ -179,14 +239,13 @@ export default function SectionDetails({ activeSection, setActiveSection }: Sect
                     })()}
                 </motion.div>
 
-                {/* Right Side - Text Content */}
                 <motion.div className="title-card-right">
                     <h2 className="text-xl font-bold mb-4">{sectionContent[activeSection]?.title}</h2>
                     <p className="text-md leading-relaxed">{sectionContent[activeSection]?.content}</p>
                 </motion.div>
             </motion.div>
 
-            {/* Content Section */}
+            {/* Content */}
             <div className="content-container">
                 {activeSection === 'summary' && <Summary />}
                 {activeSection === 'tools' && <Skills />}
