@@ -143,12 +143,13 @@ export default function SectionDetails({ activeSection, setActiveSection }: Sect
                                         {/* LEFT (only if not first) */}
                                         {hasLeft && (
                                             <motion.div
-                                                className="absolute left-[-45px] top-1/2 -translate-y-1/2 cursor-pointer group"
+                                                className="absolute md:!left-[-45px] left-[-15px] top-1/2 -translate-y-1/2 cursor-pointer group"
                                                 animate={{ x: [-5, 0, -5] }}
                                                 transition={{ repeat: Infinity, duration: 1.2 }}
                                                 onClick={goLeft}
                                             >
                                                 <FaArrowLeft
+                                                className="!w-3 !h-3 md:!w-5 md:!h-5"
                                                     size={22}
                                                     style={{ opacity: dragX < 0 ? 1 : 0.6 }}
                                                 />
@@ -164,12 +165,13 @@ export default function SectionDetails({ activeSection, setActiveSection }: Sect
                                         {/* RIGHT (only if not last) */}
                                         {hasRight && (
                                             <motion.div
-                                                className="absolute right-[-45px] top-1/2 -translate-y-1/2 cursor-pointer group"
+                                                className="absolute md:!right-[-45px] right-[-15px] top-1/2 -translate-y-1/2 cursor-pointer group"
                                                 animate={{ x: [5, 0, 5] }}
                                                 transition={{ repeat: Infinity, duration: 1.2 }}
                                                 onClick={goRight}
                                             >
                                                 <FaArrowRight
+                                                className="!w-3 !h-3 md:!w-5 md:!h-5"
                                                     size={22}
                                                     style={{ opacity: dragX > 0 ? 1 : 0.6 }}
                                                 />
