@@ -12,7 +12,6 @@ export const trackSession = async (data: any) => {
     auth: false,
     body: JSON.stringify({
       sessionId: data.sessionId,
-      websiteId: data.websiteId,
       userAgent: data.userAgent,
       referrer: data.referrer,
       landingPage: data.landingPage,
