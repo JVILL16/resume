@@ -6,6 +6,8 @@ import { Tooltip } from "react-tooltip";
 import { RiResetLeftFill } from "react-icons/ri";
 import { FaRegChessKing } from "react-icons/fa6";
 import { GoCheckCircleFill } from "react-icons/go";
+import { httpFetch } from "./services/Interceptor";
+import { getDailyPuzzle } from "./services/APIHelper";
 
 const ChessBox = () => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -52,9 +54,9 @@ const ChessBox = () => {
     const fetchPuzzle = async () => {
         setLoading(true);
         try {
-            const response = await fetch("https://lichess.org/api/puzzle/daily");
+            const response = await getDailyPuzzle();
             if (!response.ok) throw new Error("Failed to fetch puzzle");
-            const data = await response.json();
+            const data = await response.data;
             if (!data?.game?.pgn || !data?.puzzle?.solution) throw new Error("Invalid puzzle data");
 
             chessRef.current.loadPgn(data.game.pgn);

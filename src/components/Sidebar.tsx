@@ -3,6 +3,8 @@ import { FaGithub, FaTwitter, FaBeer, FaSun, FaMoon, FaChevronUp, FaChevronDown,
 import { BiRefresh } from 'react-icons/bi';
 import '../styles/Sidebar.css'
 import ChessBox from './ChessBox';
+import { httpFetch } from './services/Interceptor';
+import { getQuote } from './services/APIHelper';
 
 interface Quote {
   content: string;
@@ -40,7 +42,7 @@ export default function Sidebar() {
   const [isAgendaExpanded, setIsAgendaExpanded] = useState(false); // Development Agenda Toggle
   const [isBioExpanded, setIsBioExpanded] = useState(true); // Bio Toggle
 
-  const [loading, setLoading] = useState<boolean>(true);  // ✅ Added loading state
+  const [loading, setLoading] = useState<boolean>(true);  // Added loading state
   const [error, setError] = useState<string | null>(null);
 
   const fetchQuote = async () => {
@@ -48,32 +50,11 @@ export default function Sidebar() {
     setLoading(true);  
 
     try {
-      const isSafari = /^((?!chrome|chromium|android).)*safari/i.test(navigator.userAgent);
 
-      const source = isSafari
-        ? "zen" // fallback for Safari
-        : "favqs"; // default
-
-      //const devURL = `${proxyUrl}${encodeURIComponent(apiUrl)}`;
-      const response = await fetch(`https://sagepaths-dev-api.sagejherm.co/api/external_api.php?source=${source}`);
+      const response = await getQuote();
       if (!response.ok) throw new Error("Failed to fetch quote");
 
-      let data: Quote;
-      if (isSafari) {
-        const zen = await response.json();
-        data = {
-          content: zen[0].q,
-          author: zen[0].a,
-        };
-      } else {
-        const favqs = await response.json();
-        data = {
-          content: favqs.quote.body,
-          author: favqs.quote.author,
-        };
-
-      }
-      setQuote(data);
+      setQuote(response.data);
     } catch (err) {
       setError((err as Error).message);
     } finally {
