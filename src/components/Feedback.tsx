@@ -3,14 +3,35 @@ import { motion } from "framer-motion";
 import { FaEnvelope, FaTimes } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import '../styles/Feedback.css';
+import { createContactMessage } from "./services/APIHelper";
+import { getSessionId } from "./services/utilities/Session";
 
 
 type FeedbackFormData = {
+  name: string | "Sage Resume";
   email: string;
   type: string;
   title: string;
   request: string;
 };
+
+type ContactMessage = {
+  name: string,
+  email: string,
+  subject: string,
+  message: string,
+  sessionId: string,
+}
+
+const toContactMessage = (
+  data: FeedbackFormData
+): ContactMessage => ({
+  name: data.name,
+  email: data.email,
+  subject: `[${data.type}] ${data.title}`,
+  message: data.request,
+  sessionId: getSessionId(),
+});
 
 
 export default function Feedback() {
@@ -31,15 +52,9 @@ export default function Feedback() {
     setSuccessMessage("");
 
     try {
-      const response = await fetch("https://sagepaths.dev.api.sagejherm.co/api/feedback/fbResume_insert", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-      
-      const responseData = await response.json();
-      if (!response.ok) throw new Error("Failed to submit feedback. " + responseData.message);
-      else setSuccessMessage(responseData.message);
+      const response = await createContactMessage(toContactMessage(data));
+      if (!response.ok) throw new Error("Failed to submit feedback. " + response.message);
+      else setSuccessMessage(response.message);
 
       setTimeout(() => {
         setSuccessMessage("");
@@ -99,6 +114,14 @@ export default function Feedback() {
 
               {/** Feedback Form */}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  className="input-field"
+                  // {...register("name", { required: "Subject is required" })}
+                />
+                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
                 <input
                   type="email"
                   placeholder="Enter your email"

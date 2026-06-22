@@ -18,7 +18,7 @@ const ChessBox = () => {
     const [moveHighlight, setMoveHighlight] = useState<{ [key: string]: { backgroundColor: string } }>({});
     const [boardOrientation, setBoardOrientation] = useState<"white" | "black">("white");
     const chessRef = useRef(new Chess());
-    const userMovesOnly = puzzle?.puzzle?.solution?.filter((_: any, index: any) => index % 2 === 0) || [];
+    const userMovesOnly = puzzle?.solution?.filter((_: any, index: any) => index % 2 === 0) || [];
     const [isPuzzleComplete, setIsPuzzleComplete] = useState(false);
 
     useEffect(() => {
@@ -26,8 +26,8 @@ const ChessBox = () => {
     }, []);
 
     useEffect(() => {
-        if (puzzle?.game?.pgn) {
-            chessRef.current.loadPgn(puzzle.game.pgn);
+        if (puzzle?.pgn) {
+            chessRef.current.loadPgn(puzzle.pgn);
         }
     }, [puzzle]);
 
@@ -38,9 +38,9 @@ const ChessBox = () => {
     }, [currentStep]);
 
     useEffect(() => {
-        if (puzzle?.game?.pgn) {
+        if (puzzle?.pgn) {
             const chess = chessRef.current;
-            chess.loadPgn(puzzle.game.pgn);
+            chess.loadPgn(puzzle.pgn);
 
             // Get the first move's color
             const moves = chess.history({ verbose: true });
@@ -55,11 +55,12 @@ const ChessBox = () => {
         setLoading(true);
         try {
             const response = await getDailyPuzzle();
+            //console.log(response);
             if (!response.ok) throw new Error("Failed to fetch puzzle");
             const data = await response.data;
-            if (!data?.game?.pgn || !data?.puzzle?.solution) throw new Error("Invalid puzzle data");
+            if (!data?.pgn || !data?.solution) throw new Error("Invalid puzzle data");
 
-            chessRef.current.loadPgn(data.game.pgn);
+            chessRef.current.loadPgn(data.pgn);
             setPuzzle(data);
             setCurrentStep(0);
             setValidMoves([]);
@@ -82,7 +83,7 @@ const ChessBox = () => {
 
     const onDrop = (sourceSquare: string, targetSquare: string) => {
         const chess = chessRef.current;
-        const solution = puzzle?.puzzle?.solution || [];
+        const solution = puzzle?.solution || [];
 
         if (currentStep >= solution.length) return false; // No more moves left
 
@@ -108,7 +109,7 @@ const ChessBox = () => {
 
     const handleAIMove = () => {
         const chess = chessRef.current;
-        const solution = puzzle?.puzzle?.solution || [];
+        const solution = puzzle?.solution || [];
 
         if (currentStep >= solution.length) return; // No more moves left
 
@@ -122,8 +123,8 @@ const ChessBox = () => {
     };
 
     const resetPuzzle = () => {
-        if (puzzle?.game?.pgn) {
-            chessRef.current.loadPgn(puzzle.game.pgn); // Reset board
+        if (puzzle?.pgn) {
+            chessRef.current.loadPgn(puzzle.pgn); // Reset board
             setCurrentStep(0); // Reset step count
             setValidMoves([]); // Clear highlights
             setMoveHighlight({});
@@ -198,7 +199,7 @@ const ChessBox = () => {
 
                     </div>
 
-                    <span className="text-xs">Solve the puzzle in {Math.ceil(puzzle.puzzle.solution.length / 2)} turns</span>
+                    <span className="text-xs">Solve the puzzle in {Math.ceil(puzzle.solution.length / 2)} turns</span>
 
                     <p className="mt-2 flex gap-1">
                         <strong>Want the Solution</strong>
@@ -210,9 +211,9 @@ const ChessBox = () => {
                             <p>
                                 <strong>Moves:</strong> {userMovesOnly.length > 0 ? userMovesOnly.join(", ") : "No solution available"}
                             </p>
-                            {puzzle.puzzle?.id && (
+                            {puzzle?.id && (
                                 <a
-                                    href={`https://lichess.org/training/${puzzle.puzzle.id}`}
+                                    href={`https://lichess.org/training/${puzzle.id}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-blue-500 underline block mt-1"
